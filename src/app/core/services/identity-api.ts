@@ -5,13 +5,8 @@ import { APP_SETTINGS } from '../config/app-settings.token';
 import { AppSettings } from '../config/app-settings.model';
 import { Tenant } from '../models/tenant/tenant.model';
 import { TokenResponse } from '../models/auth/token-response.model';
+import { IdentityUserDto } from '../../core/models/auth/identity-user.dto';
 
-export interface IdentityUserDto {
-  id: string;
-  userName: string;
-  email?: string;
-  isGlobalSuperAdmin?: boolean;
-}
 
 export interface IdentityTenantDto {
   id: string;
@@ -133,5 +128,32 @@ export class IdentityApi {
         { tenantId }
       );
     }
+    /**
+   * Usuários vinculados a um tenant específico
+   */
+  getTenantUsers(tenantId: string): Observable<IdentityUserDto[]> {
+    return this.http.get<IdentityUserDto[]>(
+      `${this.baseUrl}/api/identity/tenants/${tenantId}/users`
+    );
+  }
+
+    /**
+   * Roles do usuário em um tenant (UserTenantRoles.RoleName)
+   */
+  getTenantUserRoles(tenantId: string, userId: string): Observable<string[]> {
+    return this.http.get<string[]>(
+      `${this.baseUrl}/api/identity/tenants/${tenantId}/users/${userId}/roles`
+    );
+  }
+
+  /**
+   * Define as roles do usuário em um tenant (sobrescreve o conjunto atual)
+   */
+  setTenantUserRoles(tenantId: string, userId: string, roles: string[]): Observable<void> {
+    return this.http.put<void>(
+      `${this.baseUrl}/api/identity/tenants/${tenantId}/users/${userId}/roles`,
+      { roles }
+    );
+  }
 }
 

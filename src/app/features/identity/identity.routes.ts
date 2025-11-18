@@ -1,4 +1,3 @@
-// src/app/features/identity/identity.routes.ts
 import { Routes } from '@angular/router';
 import { TenantsList } from './tenants/tenants-list/tenants-list/tenants-list';
 import { TenantDetail } from './tenants/tenant-detail/tenant-detail/tenant-detail';
@@ -9,39 +8,41 @@ import { TenantMembershipDetail } from './tenant-memberships/tenant-membership-d
 import { RoleGuard } from '../../core/guards/role-guard';
 
 export const IDENTITY_ROUTES: Routes = [
-  // TENANTS
   {
     path: 'tenants',
     canActivate: [RoleGuard],
-    data: { roles: ['SuperAdmin', 'TenantAdmin'] },
+    // Aqui já usando o padrão novo:
+    data: { roles: ['Global.SuperAdmin', 'Tenant.Admin'] },
     children: [
       { path: '', component: TenantsList },
       { path: ':id', component: TenantDetail }
     ]
   },
-
-  // USERS
   {
     path: 'users',
     canActivate: [RoleGuard],
-    data: { roles: ['SuperAdmin'] },
+    data: { roles: ['Global.SuperAdmin'] },
     children: [
       { path: '', component: UsersList },
       { path: ':id', component: UserDetail }
     ]
   },
-
-  // USER x TENANT MEMBERSHIPS
   {
     path: 'tenant-memberships',
     canActivate: [RoleGuard],
-    data: { roles: ['SuperAdmin'] },
+    data: { roles: ['Global.SuperAdmin', 'Tenant.Admin'] },
     children: [
       { path: '', component: TenantMembershipsList },
-      // detalhe recebe userId e tenantId
-      { path: ':userId/:tenantId', component: TenantMembershipDetail }
+      { path: ':id', component: TenantMembershipDetail }
     ]
   },
-
+  {
+    path: 'access',
+    canActivate: [RoleGuard],
+    // Painel de perfis por tenant: Tenant.Admin ou Global.SuperAdmin
+    data: { roles: ['Global.SuperAdmin', 'Tenant.Admin'] },
+    loadComponent: () =>
+      import('./tenant-access-panel/tenant-access-panel').then(m => m.TenantAccessPanel)
+  },
   { path: '', redirectTo: 'tenants', pathMatch: 'full' }
 ];
