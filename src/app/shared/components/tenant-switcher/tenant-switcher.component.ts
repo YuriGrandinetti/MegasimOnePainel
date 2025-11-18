@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-import { APP_SETTINGS } from '../../../../core/config/app-settings.token';
-import { AppSettings } from '../../../../core/config/app-settings.model';
+import { APP_SETTINGS } from '../../../core/config/app-settings.token';
+import { AppSettings } from '../../../core/config/app-settings.model';
 
-import { Auth } from '../../../../core/auth/auth';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { Notification } from '../../../../core/services/notification';
+import { Auth } from '../../../core/auth/auth';
+import { AuthService } from '../../../core/auth/auth.service';
+import { Notification } from '../../../core/services/notification';
 
 interface MyTenantDto {
   tenantId: string;
@@ -111,4 +111,3 @@ export class TenantSwitcher implements OnInit {
       });
   }
 }
-

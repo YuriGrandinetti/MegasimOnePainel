@@ -1,19 +1,23 @@
+// src/app/app.routes.ts
 import { Routes } from '@angular/router';
-import { AuthLayoutComponent } from './core/layout/auth-layout/auth-layout.component';
-import { MainLayoutComponent } from './core/layout/main-layout/main-layout.component';
+import { AuthLayout } from './core/layout/auth-layout/auth-layout/auth-layout';
+import { MainLayout } from './core/layout/main-layout/main-layout/main-layout';
+import { AuthGuard } from './core/guards/auth-guard';
 
 export const appRoutes: Routes = [
   {
     path: 'auth',
-    component: AuthLayoutComponent,
+    component: AuthLayout,
     loadChildren: () =>
-      import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES),
+      import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
   },
   {
     path: '',
-    component: MainLayoutComponent,
+    component: MainLayout,
+    canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./features/identity/identity.routes').then(m => m.IDENTITY_ROUTES),
+      import('./features/identity/identity.routes').then(m => m.IDENTITY_ROUTES)
   },
   { path: '**', redirectTo: '' }
 ];
+

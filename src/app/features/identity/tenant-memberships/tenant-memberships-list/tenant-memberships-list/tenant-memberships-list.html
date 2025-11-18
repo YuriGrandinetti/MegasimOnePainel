@@ -1,1 +1,114 @@
-<p>tenant-memberships-list works!</p>
+<div class="container-fluid">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="h5 mb-0">Vínculos Usuário x Tenant</h2>
+    <div>
+      <button class="btn btn-sm btn-success me-2" type="button" (click)="openCreateModal()">
+        Novo vínculo
+      </button>
+      <button class="btn btn-sm btn-primary" type="button" (click)="load()" [disabled]="loading">
+        Atualizar
+      </button>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="card mb-3">
+    <div class="card-body">
+      <form class="row g-2">
+        <div class="col-md-4">
+          <label class="form-label">User ID</label>
+          <input class="form-control form-control-sm"
+                 [(ngModel)]="filterUserId"
+                 name="userIdFilter">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Tenant ID</label>
+          <input class="form-control form-control-sm"
+                 [(ngModel)]="filterTenantId"
+                 name="tenantIdFilter">
+        </div>
+
+        <div class="col-md-4 d-flex align-items-end">
+          <button class="btn btn-sm btn-primary me-2" type="button" (click)="load()">Aplicar</button>
+          <button class="btn btn-sm btn-outline-secondary" type="button" (click)="onClear()">Limpar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- GRID genérico -->
+  <div class="card">
+    <div class="card-body p-0">
+      <app-data-grid
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [context]="gridContext"
+        [height]="500"
+        [pagination]="true"
+        [pageSize]="25">
+      </app-data-grid>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de criação -->
+<div class="modal-backdrop fade show" *ngIf="showCreateModal"></div>
+
+<div class="modal fade show d-block" tabindex="-1" *ngIf="showCreateModal">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Novo vínculo usuário x tenant</h5>
+        <button type="button" class="btn-close" (click)="closeCreateModal()"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">User ID</label>
+              <input class="form-control form-control-sm"
+                     [(ngModel)]="createModel.userId"
+                     name="createUserId">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Tenant ID</label>
+              <input class="form-control form-control-sm"
+                     [(ngModel)]="createModel.tenantId"
+                     name="createTenantId">
+            </div>
+          </div>
+
+          <div class="form-check mb-3">
+            <input class="form-check-input"
+                   type="checkbox"
+                   id="createIsDefault"
+                   [(ngModel)]="createModel.isDefault"
+                   name="createIsDefault">
+            <label class="form-check-label" for="createIsDefault">
+              Tenant padrão do usuário
+            </label>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Roles (separadas por vírgula)</label>
+            <input class="form-control form-control-sm"
+                   [(ngModel)]="createModel.rolesText"
+                   name="createRoles">
+            <div class="form-text">
+              Ex.: <code>SuperAdmin, TenantAdmin</code>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" type="button" (click)="closeCreateModal()">Cancelar</button>
+        <button class="btn btn-primary btn-sm" type="button" (click)="saveCreate()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

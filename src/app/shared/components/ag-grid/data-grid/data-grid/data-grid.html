@@ -1,1 +1,12 @@
-<p>data-grid works!</p>
+<div class="ag-theme-quartz" [style.height.px]="height">
+  <ag-grid-angular
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [context]="context"
+    [pagination]="pagination"
+    [paginationPageSize]="pageSize"
+    (gridReady)="onGridReady($event)">
+  </ag-grid-angular>
+</div>
+

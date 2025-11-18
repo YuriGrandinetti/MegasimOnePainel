@@ -1,1 +1,82 @@
-<p>tenant-membership-detail works!</p>
+<div class="container-fluid">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="h5 mb-0">Vínculo Usuário x Tenant</h2>
+    <button class="btn btn-sm btn-outline-secondary" (click)="goBack()">Voltar</button>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+
+      <form (ngSubmit)="save()">
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">User ID</label>
+            <input type="text" class="form-control form-control-sm" [value]="userId" disabled>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Tenant ID</label>
+            <input type="text" class="form-control form-control-sm" [value]="tenantId" disabled>
+          </div>
+        </div>
+
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="isDefault"
+            [(ngModel)]="isDefault"
+            name="isDefault">
+          <label class="form-check-label" for="isDefault">
+            Tenant padrão do usuário
+          </label>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Roles</label>
+
+          <div class="d-flex flex-wrap mb-2">
+            <span *ngFor="let role of roles"
+                  class="badge bg-secondary me-2 mb-2 d-flex align-items-center">
+              <span class="me-1">{{ role }}</span>
+              <button type="button"
+                      class="btn btn-sm btn-link text-white p-0"
+                      (click)="removeRole(role)">×</button>
+            </span>
+
+            <span *ngIf="roles.length === 0" class="text-muted small">
+              Nenhuma role atribuída.
+            </span>
+          </div>
+
+          <div class="input-group input-group-sm">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Adicionar role e pressionar Enter"
+              [(ngModel)]="newRole"
+              name="newRole"
+              (keydown)="onRoleKeydown($event)">
+            <button type="button"
+                    class="btn btn-outline-primary"
+                    (click)="onAddRole()">
+              Adicionar
+            </button>
+          </div>
+
+          <div class="form-text">
+            Ex.: <code>SuperAdmin</code>, <code>TenantAdmin</code>, <code>IdentityManager</code>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="saving">
+          {{ saving ? 'Salvando...' : 'Salvar' }}
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+

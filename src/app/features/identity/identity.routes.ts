@@ -1,32 +1,47 @@
+// src/app/features/identity/identity.routes.ts
 import { Routes } from '@angular/router';
-import { TenantsListComponent } from './tenants/tenants-list/tenants-list.component';
-import { TenantDetailComponent } from './tenants/tenant-detail/tenant-detail.component';
-import { UsersListComponent } from './users/users-list/users-list.component';
-import { UserDetailComponent } from './users/user-detail/user-detail.component';
-import { TenantMembershipsListComponent } from './tenant-memberships/tenant-memberships-list/tenant-memberships-list.component';
-import { TenantMembershipDetailComponent } from './tenant-memberships/tenant-membership-detail/tenant-membership-detail.component';
+import { TenantsList } from './tenants/tenants-list/tenants-list/tenants-list';
+import { TenantDetail } from './tenants/tenant-detail/tenant-detail/tenant-detail';
+import { UsersList } from './users/users-list/users-list/users-list';
+import { UserDetail } from './users/user-detail/user-detail/user-detail';
+import { TenantMembershipsList } from './tenant-memberships/tenant-memberships-list/tenant-memberships-list/tenant-memberships-list';
+import { TenantMembershipDetail } from './tenant-memberships/tenant-membership-detail/tenant-membership-detail/tenant-membership-detail';
+import { RoleGuard } from '../../core/guards/role-guard';
 
 export const IDENTITY_ROUTES: Routes = [
+  // TENANTS
   {
     path: 'tenants',
+    canActivate: [RoleGuard],
+    data: { roles: ['SuperAdmin', 'TenantAdmin'] },
     children: [
-      { path: '', component: TenantsListComponent },
-      { path: ':id', component: TenantDetailComponent }
+      { path: '', component: TenantsList },
+      { path: ':id', component: TenantDetail }
     ]
   },
+
+  // USERS
   {
     path: 'users',
+    canActivate: [RoleGuard],
+    data: { roles: ['SuperAdmin'] },
     children: [
-      { path: '', component: UsersListComponent },
-      { path: ':id', component: UserDetailComponent }
+      { path: '', component: UsersList },
+      { path: ':id', component: UserDetail }
     ]
   },
+
+  // USER x TENANT MEMBERSHIPS
   {
     path: 'tenant-memberships',
+    canActivate: [RoleGuard],
+    data: { roles: ['SuperAdmin'] },
     children: [
-      { path: '', component: TenantMembershipsListComponent },
-      { path: ':id', component: TenantMembershipDetailComponent }
+      { path: '', component: TenantMembershipsList },
+      // detalhe recebe userId e tenantId
+      { path: ':userId/:tenantId', component: TenantMembershipDetail }
     ]
   },
+
   { path: '', redirectTo: 'tenants', pathMatch: 'full' }
 ];

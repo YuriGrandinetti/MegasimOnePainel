@@ -1,10 +1,14 @@
+// src/app/core/interceptors/error-interceptor.ts
 import { HttpInterceptorFn } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // TODO: pegar access_token do AuthStoreService
-  // const token = ...
-  // const authReq = token ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } }) : req;
-  // return next(authReq);
-
-  return next(req);
+export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+  return next(req).pipe(
+    catchError((error) => {
+      console.error('HTTP error', error);
+      // aqui você pode tratar o erro (toast, redirect, etc.)
+      return throwError(() => error);
+    })
+  );
 };
+

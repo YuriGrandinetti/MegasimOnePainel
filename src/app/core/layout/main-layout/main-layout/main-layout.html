@@ -1,1 +1,50 @@
-<p>main-layout works!</p>
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Logo / Nome da aplicação -->
+    <a class="navbar-brand" href="#">
+      MegasimOne Identity
+    </a>
+
+    <!-- Lado direito da navbar -->
+    <div class="d-flex ms-auto align-items-center">
+
+      <!-- Tenant switcher -->
+      <div class="me-3">
+        <app-tenant-switcher></app-tenant-switcher>
+      </div>
+
+      <!-- Nome do usuário + tenant atual -->
+      <div class="me-3 text-end text-white-50" *ngIf="(user$ | async) as user">
+        <div class="small">
+          {{ user.userName || user.email }}
+        </div>
+        <div class="small">
+          <span class="text-info" *ngIf="user.tenantName; else noTenant">
+            {{ user.tenantName }}
+          </span>
+          <ng-template #noTenant>
+            <span class="text-warning">Sem tenant ativo</span>
+          </ng-template>
+        </div>
+      </div>
+
+      <!-- Botão de logout -->
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-light"
+        (click)="onLogout()">
+        Sair
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- TOASTS GLOBAIS -->
+<app-toast-container></app-toast-container>
+
+<!-- Conteúdo principal -->
+<div class="container-fluid mt-3">
+  <router-outlet></router-outlet>
+</div>
+
+

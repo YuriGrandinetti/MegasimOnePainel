@@ -1,1 +1,163 @@
-<p>user-detail works!</p>
+<div class="container-fluid" *ngIf="user; else loadingOrError">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+      <h2 class="h5 mb-0">Usuário: {{ user.userName }}</h2>
+      <small class="text-muted">ID: {{ userId }}</small>
+    </div>
+
+    <button class="btn btn-sm btn-outline-secondary" type="button" (click)="goBack()">
+      Voltar
+    </button>
+  </div>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+      <button class="nav-link"
+              [class.active]="activeTab === 'dados'"
+              (click)="setTab('dados')">
+        Dados
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link"
+              [class.active]="activeTab === 'roles'"
+              (click)="setTab('roles')">
+        Roles globais
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link"
+              [class.active]="activeTab === 'tenants'"
+              (click)="setTab('tenants')">
+        Tenants
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+
+    <!-- TAB DADOS -->
+    <div class="tab-pane fade" [class.show]="activeTab === 'dados'" [class.active]="activeTab === 'dados'">
+      <div class="card">
+        <div class="card-body">
+          <form (ngSubmit)="saveUser()">
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Login</label>
+                <input class="form-control form-control-sm"
+                       [(ngModel)]="user.userName"
+                       name="userName">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input class="form-control form-control-sm"
+                       [(ngModel)]="user.email"
+                       name="email">
+              </div>
+            </div>
+
+            <div class="form-check mb-3">
+              <input class="form-check-input"
+                     type="checkbox"
+                     id="isGlobalSuperAdmin"
+                     [(ngModel)]="user.isGlobalSuperAdmin"
+                     name="isGlobalSuperAdmin">
+              <label class="form-check-label" for="isGlobalSuperAdmin">
+                SuperAdmin global
+              </label>
+            </div>
+
+            <button class="btn btn-primary btn-sm" type="submit" [disabled]="savingUser">
+              {{ savingUser ? 'Salvando...' : 'Salvar dados' }}
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB ROLES GLOBAIS -->
+    <div class="tab-pane fade" [class.show]="activeTab === 'roles'" [class.active]="activeTab === 'roles'">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="mb-3">
+            <label class="form-label">Roles globais</label>
+
+            <div class="d-flex flex-wrap mb-2">
+              <span *ngFor="let role of globalRoles"
+                    class="badge bg-secondary me-2 mb-2 d-flex align-items-center">
+                <span class="me-1">{{ role }}</span>
+                <button type="button"
+                        class="btn btn-sm btn-link text-white p-0"
+                        (click)="removeGlobalRole(role)">
+                  ×
+                </button>
+              </span>
+
+              <span *ngIf="globalRoles.length === 0" class="text-muted small">
+                Nenhuma role global atribuída.
+              </span>
+            </div>
+
+            <div class="input-group input-group-sm mb-2">
+              <input class="form-control"
+                     placeholder="Adicionar role global e pressionar Enter"
+                     [(ngModel)]="newRole"
+                     name="newGlobalRole"
+                     (keydown)="onGlobalRoleKeyDown($event)">
+              <button class="btn btn-outline-primary"
+                      type="button"
+                      (click)="addGlobalRole()">
+                Adicionar
+              </button>
+            </div>
+
+            <small class="text-muted">
+              Ex.: <code>SuperAdmin</code>, <code>IdentityAdmin</code>, <code>AuditViewer</code>
+            </small>
+          </div>
+
+          <button class="btn btn-primary btn-sm"
+                  type="button"
+                  (click)="saveRoles()"
+                  [disabled]="savingRoles">
+            {{ savingRoles ? 'Salvando...' : 'Salvar roles globais' }}
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB TENANTS -->
+    <div class="tab-pane fade" [class.show]="activeTab === 'tenants'" [class.active]="activeTab === 'tenants'">
+      <div class="card">
+        <div class="card-body p-0">
+          <app-data-grid
+            [rowData]="tenantMemberships"
+            [columnDefs]="tenantColumnDefs"
+            [defaultColDef]="tenantDefaultColDef"
+            [context]="tenantGridContext"
+            [height]="400"
+            [pagination]="true"
+            [pageSize]="20">
+          </app-data-grid>
+        </div>
+      </div>
+      <div class="mt-2 text-muted small" *ngIf="loadingTenants">
+        Carregando tenants...
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #loadingOrError>
+  <div class="container-fluid">
+    <p class="text-muted">Carregando dados do usuário...</p>
+  </div>
+</ng-template>
+
