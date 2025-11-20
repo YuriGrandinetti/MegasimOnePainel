@@ -1,0 +1,19 @@
+{
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.empty.hint": "hidden",
+  "chat.mcp.serverSampling": {},
+
+  "plantuml.render": "Local",              // ou "PlantUMLServer"
+           // ancora na raiz do workspace
+  "plantuml.exportOutDir": "./imagens",
+  "plantuml.exportSubFolder": false,       // evita criar subpastas extras
+  "plantuml.exportFormat": "svg",
+  "files.associations": {
+    "*.puml": "plantuml"
+  },
+"workbench.settings.applyToAllProfiles": [
+
+    
+]
+}
+

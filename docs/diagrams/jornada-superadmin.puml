@@ -1,0 +1,53 @@
+@startuml
+title Jornada 1: Super Admin + Colaboradores - MEGASIM One
+
+start
+:Login (MFA obrigatório para Super Admin);
+:Exibir Dashboard Global (Tenants, Faturamento, Tickets);
+
+partition "Colaboradores (MEGASIM One)" {
+  :Listar colaboradores;
+  if (Novo colaborador?) then (Sim)
+    :Cadastrar (nome, e-mail, área, papel);
+    :Enviar convite;
+  else (Não)
+    :Editar permissões / desativar;
+  endif
+}
+
+partition "Empresas (Tenants)" {
+  :Listar tenants;
+  if (Criar novo tenant?) then (Sim)
+    :Preencher dados (CNPJ, plano, responsável);
+    :Ativar tenant;
+  else (Não)
+    :Selecionar tenant existente;
+    :Editar plano / status;
+  endif
+}
+
+partition "Planos e Assinaturas" {
+  :Criar / Editar planos;
+  :Definir limites e preços;
+  :Vincular tenants aos planos;
+}
+
+partition "Faturamento" {
+  :Visualizar cobranças;
+  :Emitir NFS-e da plataforma;
+  :Registrar renovações;
+}
+
+partition "Suporte" {
+  :Listar tickets;
+  :Acessar tenant em modo suporte;
+  :Registrar atendimento;
+}
+
+partition "Relatórios" {
+  :Gerar KPIs globais;
+  :Exportar relatórios;
+}
+
+stop
+@enduml
