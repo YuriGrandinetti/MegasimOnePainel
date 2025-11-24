@@ -1,0 +1,20 @@
+@startuml
+title Jornada 2A: Empresa de Serviços (NFS-e)
+
+start
+:Login → Selecionar Organização;
+:Onboarding NFS-e;
+:Selecionar Município/Provedor;
+:Credenciais / Certificado A1;
+:Configurar Códigos de Serviço / Alíquota ISS;
+:Definir Retenções e Testar Conexão;
+:Equipe e Permissões;
+:Emitir RPS → Transmitir NFS-e;
+if (Autorizada?) then (Sim)
+  :Sucesso (PDF / Envio / Financeiro);
+else
+  :Rejeitada → Corrigir e reenviar;
+endif
+:Financeiro e Relatórios ISS;
+stop
+@enduml

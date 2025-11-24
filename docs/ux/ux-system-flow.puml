@@ -1,0 +1,65 @@
+@startuml
+title UX System Flow — Interações Usuário × Sistema × IA (MEGASIM One)
+
+skinparam backgroundColor #FAFAFA
+skinparam sequence {
+  ArrowColor #777777
+  ActorBorderColor #555555
+  LifeLineBorderColor #AAAAAA
+  LifeLineBackgroundColor #FFFFFF
+  ParticipantBorderColor #AAAAAA
+  ParticipantBackgroundColor #FFFFFF
+  BoxBackgroundColor #EAEAEA
+  BoxBorderColor #999999
+}
+
+actor "👤 Usuário (Admin / Operador)" as USER
+participant "🎨 Interface (Front-End MEGASIM One)" as UI
+participant "⚙️ Orquestrador UX / API Gateway" as UXAPI
+participant "🧩 Serviços de Negócio\n(Fiscal / Financeiro / Suporte)" as SERVICES
+participant "🧠 Módulo IA / Suporte Inteligente" as AI
+participant "📊 Observabilidade / Logs" as OBS
+
+== Início da Sessão ==
+USER -> UI : Login (MFA / Token)
+UI -> UXAPI : Autenticação + Carregar Perfil
+UXAPI -> SERVICES : Obter dados do tenant + permissões
+SERVICES --> UXAPI : Retorna contexto inicial
+UXAPI --> UI : Renderiza dashboard
+
+== Ação: Emissão de Nota ==
+USER -> UI : Seleciona “Emitir Nota Fiscal”
+UI -> UXAPI : Envia dados + módulo fiscal (NF-e / NFC-e / NFS-e)
+UXAPI -> SERVICES : Validação e transmissão
+SERVICES -> OBS : Log de evento (início de emissão)
+SERVICES --> UXAPI : Resultado (autorizada / rejeitada)
+UXAPI -> UI : Exibe feedback visual
+UI -> AI : Envia logs e contexto (para aprendizado)
+
+== Ação: Suporte Contextual ==
+USER -> UI : Clica “Ajuda”
+UI -> AI : Solicita artigo / resposta contextual
+AI --> UI : Sugestão de solução + opção “Gerar Ticket”
+UI -> UXAPI : Criação de ticket (se necessário)
+UXAPI -> SERVICES : Registra ticket e log
+SERVICES -> OBS : Atualiza métricas de suporte
+
+== Ação: Financeiro Integrado ==
+USER -> UI : Abre módulo Financeiro
+UI -> UXAPI : Solicita contas vinculadas às notas
+UXAPI -> SERVICES : Obtém lançamentos automáticos
+SERVICES --> UXAPI : Retorna dados consolidados
+UXAPI --> UI : Exibe dashboard financeiro
+
+== Aprendizado Contínuo ==
+AI -> OBS : Coleta métricas de erro, tempo e satisfação
+OBS -> AI : Retorna indicadores para ajuste do modelo
+AI -> UXAPI : Recomenda melhorias automáticas (UX adaptativo)
+
+== Encerramento ==
+USER -> UI : Logout
+UI -> UXAPI : Finaliza sessão
+UXAPI -> OBS : Log de sessão encerrada
+
+@enduml
+![UX System Flow](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-system-flow.svg)

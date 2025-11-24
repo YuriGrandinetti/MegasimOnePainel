@@ -1,0 +1,37 @@
+🧭 Jornada 3 — NFC-e (PDV / Frente de Caixa)
+🎯 Objetivo
+
+Mapear o fluxo de venda rápida no PDV emitindo NFC-e (modelo 65): abertura de caixa, itens, pagamento, emissão/contingência e impressão/compartilhamento do DANFE NFC-e.
+
+👤 Perfis
+Papel	Escopo	Permissões
+Operador de Caixa	PDV	Abrir/fechar caixa, emitir NFC-e, cancelamento dentro do prazo
+Administrador	Tenant	Configura SAT/MFE (se houver), séries/numeração e parâmetros fiscais
+Financeiro	Financeiro	Recebimentos por meio de pagamento, conciliação
+🔹 Jornada resumida
+
+Abertura de caixa (suprimento inicial + conferência)
+
+Venda rápida:
+
+Itens por código/leitor
+
+Cliente opcional (CPF na nota)
+
+Pagamento (Pix/Cartão/Dinheiro)
+
+Emissão NFC-e:
+
+Transmitida → Autorizada (gera DANFE NFC-e)
+
+Sem internet → Contingência (salva offline e sincroniza depois)
+
+Pós-venda:
+
+Impressão DANFE/QR Code, envio por e-mail/WhatsApp
+
+Cancelamento dentro do prazo
+
+Fechamento de caixa:
+
+Sangria/Ref. de valores, resumo por meio de pagamento

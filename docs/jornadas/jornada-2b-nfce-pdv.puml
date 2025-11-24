@@ -1,0 +1,19 @@
+@startuml
+title Jornada 2B: Comércio Varejista (PDV / NFC-e)
+
+start
+:Login → Selecionar Organização;
+:Onboarding PDV (Série NFC-e, Certificado, Pagamentos);
+:Abrir Caixa;
+:Registrar Itens / CPF Opcional;
+:Selecionar Pagamento;
+:Emitir NFC-e;
+if (Conectado SEFAZ?) then (Sim)
+  :Transmitir → DANFE NFC-e / QR Code;
+else
+  :Contingência Offline;
+endif
+:Pós-venda (Cancelamento, Envio);
+:Fechar Caixa (Resumo Financeiro);
+stop
+@enduml

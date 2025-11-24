@@ -1,0 +1,243 @@
+Megasim One – Motor de Templates Fiscais
+1. Propósito
+
+Fornecer um motor de configuração fiscal por template, que permita:
+
+Distribuir pacotes prontos de regras fiscais (por regime, segmento, UF, NCM/CFOP) para novos clientes;
+
+Aplicar essas regras automaticamente em:
+
+cálculo de impostos (ICMS, ICMS ST, PIS/COFINS, ISS etc.),
+
+sugestão de CFOP/CST/CSOSN,
+
+validações fiscais preventivas;
+
+Manter independência entre templates “de fábrica” e regras customizadas do cliente, sem quebrar notas antigas quando a lei mudar.
+
+2. Escopo (MVP)
+
+MVP do Motor de Templates Fiscais:
+
+✅ Templates para:
+
+Regime: Simples Nacional / Simples Híbrido / Presumido / Real;
+
+Segmento: ex. varejo mercado, varejo farmácia, material construção;
+
+UF origem/destino;
+
+Combinação NCM + tipo_item_fiscal (mercadoria, serviço, combo etc.).
+
+✅ Aplicação em:
+
+Cadastro de produto (preencher/regra sugerida),
+
+Cálculo fiscal do item na emissão de NF-e/NFC-e/NFS-e.
+
+✅ Versionamento simples:
+
+versao e vigencia_inicio / vigencia_fim.
+
+✅ Permitir override por tenant/estabelecimento.
+
+3. Dimensões de parametrização
+
+Um Template Fiscal é identificado (no mínimo) por:
+
+regime_tributario
+
+ex: SIMPLES_NACIONAL, LUCRO_PRESUMIDO
+
+segmento
+
+ex: VAREJO_MERCADO, FARMACIA, MATERIAL_CONSTRUCAO
+
+uf_origem
+
+uf_destino
+
+ncm
+
+tipo_item_fiscal
+
+ex: PRODUTO, SERVICO, COMBO
+
+operacao
+
+ex: VENDA_INTERNA, VENDA_INTERESTADUAL, DEVOLUCAO, BONIFICACAO
+
+Esses atributos formam a “chave de lookup” que o motor vai usar.
+
+5. Motor de Resolução (algoritmo)
+5.1. Entrada básica
+
+tenant_id
+
+estabelecimento_id
+
+regime_tributario
+
+segmento
+
+uf_origem
+
+uf_destino
+
+ncm
+
+tipo_item_fiscal
+
+operacao
+
+data_emissao
+
+5.2. Passos (MVP)
+
+Coleta de templates candidatos
+Buscar em fiscal_template + tenant_template_fiscal os templates:
+
+Ativos;
+
+Dentro da vigência (data_emissao entre vigencia_inicio e vigencia_fim/null);
+
+Que casem com:
+
+regime_tributario
+
+segmento
+
+uf_origem, uf_destino
+
+ncm (exato ou por faixa/máscara no futuro)
+
+tipo_item_fiscal
+
+operacao
+
+associadas ao tenant_id e opcional estabelecimento_id.
+
+Aplicar prioridade e “especificidade”
+
+Regra: quanto mais específico, maior o peso (ex.: NCM exato > NCM por capítulo).
+
+Se restarem múltiplos, usar:
+
+prioridade (tenant),
+
+versao mais nova.
+
+Retornar pacote de regras consolidadas
+
+Ler fiscal_template_regra.
+
+Entregar ao PdvFiscalCalculationService (ou similar) um DTO:
+
+public sealed class RegraFiscalResolvidaDto
+{
+    public string Cfop { get; init; }
+    public string? CstIcms { get; init; }
+    public string? Csosn { get; init; }
+    public decimal? AliquotaIcms { get; init; }
+    public decimal? AliquotaPis { get; init; }
+    public decimal? AliquotaCofins { get; init; }
+    public decimal? AliquotaIpi { get; init; }
+    public decimal? ReducaoBcIcms { get; init; }
+    public string? ObservacaoFiscal { get; init; }
+}
+
+
+Cálculo fiscal
+
+O motor de cálculo aplica a matemática de base de cálculo, reduções, ST, etc., sem saber de onde vieram as regras (template X override de produto, etc.).
+
+6. Integração com UX e Copilot Fiscal
+6.1. No cadastro de produto
+
+Ao salvar um produto novo:
+
+Chamar o motor de templates para sugerir:
+
+CFOP padrão de venda interna,
+
+CST/CSOSN,
+
+Alíquotas padrão (ICMS, PIS, COFINS).
+
+Gravar no produto_regra_fiscal com flag:
+
+origem_regra = 'TEMPLATE'.
+
+Se o usuário customizar algo:
+
+origem_regra = 'CUSTOMIZADA',
+
+Ainda é possível mostrar: “Baseado no Template SN_VAREJO_SP v3”.
+
+6.2. No Copilot Fiscal (chat)
+
+Prompts podem fazer:
+
+“Explique por que esse item está com CFOP 5.102 e CSOSN 102.”
+
+O motor responde baseado no template + overrides, e o LLM traduz em linguagem natural.
+
+O Motor de Templates vira a camada determinística; o LLM só explica/sugere.
+
+7. Governança & Versionamento
+
+Nova lei → nova versão de template:
+
+Criar fiscal_template com versao = versao_atual + 1;
+
+Ajustar vigencia_fim da versão antiga;
+
+A partir da vigência, novas notas usam a versão nova.
+
+Notas antigas:
+
+Continuam apontando para o template_id ou guardam os campos “de-para” no XML;
+
+Nenhuma reprocessa retrospectivamente.
+
+Logs:
+
+Guardar em auditoria_fiscal_template alterações (quem mudou, o quê, quando).
+
+8. Roadmap
+
+MVP (Fase 1)
+
+Tabelas básicas acima;
+
+Resolução por NCM exato + UF origem/destino + regime;
+
+Integração com:
+
+Cadastro de produto,
+
+Cálculo fiscal de item.
+
+Fase 2
+
+Máscaras de NCM (capítulo, posição, subposição);
+
+Composição de templates (herança: “Template base SN_VAREJO_SP” + ajustes);
+
+Editor visual de templates na UI (drag-and-drop das regras);
+
+Importação de pacotes pré-configurados por consultoria fiscal.
+
+Fase 3 (IA + Analytics)
+
+IA sugerindo templates novos ao detectar padrões de lançamento;
+
+Ranking de templates mais usados;
+
+Alertas: “Este template está gerando muitas rejeições em determinada UF”.
+
+Se você quiser, no próximo passo posso:
+
+Transformar isso em Markdown pronto para GitLab Wiki (com TOC e seções numeradas), ou
+
+Descer já para classes C# (EF Core) + DTOs + interface ITemplateFiscalService no padrão que estamos usando no Megasim One.

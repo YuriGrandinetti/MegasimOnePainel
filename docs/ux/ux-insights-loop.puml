@@ -1,0 +1,52 @@
+@startuml
+title UX Insights Loop — Aprendizado Contínuo (MEGASIM One)
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333
+  FontSize 14
+  BorderColor #AAAAAA
+  RoundCorner 10
+}
+skinparam ArrowColor #777
+skinparam shadowing false
+
+' COMPONENTES PRINCIPAIS
+rectangle "🎨 **Experiência de Uso**\n(Usuário interage com o sistema)" as EXP
+rectangle "📊 **Coleta de Dados UX**\n(Telemetria, logs, eventos, métricas)" as DATA
+rectangle "🧠 **Análise e IA**\n(Modelos detectam padrões, erros e oportunidades)" as AI
+rectangle "🧩 **Geração de Insights UX**\n(Relatórios, sugestões automáticas, alertas)" as INSIGHTS
+rectangle "🚀 **Ação e Melhoria**\n(Ajustes de design, fluxo, automação, documentação)" as ACTION
+rectangle "🔁 **Governança e Validação**\n(Revisão de métricas, OKRs e ética de IA)" as GOV
+
+' FLUXO PRINCIPAL
+EXP --> DATA : eventos UX / interações
+DATA --> AI : métricas e logs
+AI --> INSIGHTS : padrões / recomendações
+INSIGHTS --> ACTION : propostas de melhoria
+ACTION --> GOV : validação / priorização
+GOV --> EXP : mudanças aplicadas e medidas novamente
+
+' CICLO DE FEEDBACK INTERNO
+AI --> GOV : auditoria de modelos / bias
+GOV --> AI : ajustes de limiares e ética
+INSIGHTS --> DATA : registro das alterações e hipóteses testadas
+
+' NOTAS
+note right of DATA
+Coleta contínua:\n• eventos UX (cliques, tempo)\n• logs fiscais, suporte e financeiro\n• métricas NPS e CSAT
+end note
+
+note right of AI
+IA observa comportamento real:\n• detecção de gargalos e falhas UX\n• recomendação de melhorias\n• previsão de churn e insatisfação
+end note
+
+note right of GOV
+Governança assegura:\n✔ LGPD e ética\n✔ Relevância das métricas\n✔ Revisão mensal de OKRs
+end note
+
+note right of ACTION
+Melhorias aplicadas:\n• ajustes no fluxo UX\n• textos e mensagens mais empáticas\n• automações sugeridas via IA
+end note
+@enduml
+![UX Insights Loop](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-insights-loop.svg)

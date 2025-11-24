@@ -1,0 +1,93 @@
+@startuml
+title Service Blueprint — Suporte Inteligente (IA + Base de Conhecimento + Modo de Acesso Temporário)
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333333
+  FontSize 14
+  BorderColor #BBBBBB
+  RoundCorner 8
+}
+skinparam partition {
+  BackgroundColor #FFFFFF
+  BorderColor #999999
+}
+skinparam note {
+  BackgroundColor #FFFFEE
+  BorderColor #E0DFAF
+}
+skinparam ArrowColor #CCCCCC
+skinparam shadowing false
+
+' LINHAS GUIAS
+rectangle "<b>Linha de Interação</b>" as L1 #F3F3F3
+rectangle "<b>Linha de Visibilidade</b>" as L2 #F3F3F3
+rectangle "<b>Linha Interna</b>" as L3 #F3F3F3
+
+' CAMADAS
+
+partition "**Ações do Usuário (Cliente ou Operador)**" as USER {
+  rectangle "1️⃣ Acessa tela e encontra dificuldade (ex: erro de transmissão, nota rejeitada)" as U1
+  rectangle "2️⃣ Clica em **Ajuda** ou usa campo de busca" as U2
+  rectangle "3️⃣ Lê artigo ou tutorial proposto" as U3
+  rectangle "4️⃣ Se dúvida persistir, aciona **Chat com IA**" as U4
+  rectangle "5️⃣ (Se necessário) abre chamado ou autoriza acesso temporário" as U5
+}
+
+L1 -[hidden]-> L1
+
+partition "**Frontstage (UX visível)**" as FRONT {
+  rectangle "Ajuda contextual embutida\n• baseada no módulo atual\n• exibe artigos e links úteis" as F1
+  rectangle "Pesquisa inteligente\n• sugere artigos relevantes (base de conhecimento)\n• aprendizado contínuo via IA" as F2
+  rectangle "Chat assistido por IA\n• interpreta intenção e propõe soluções\n• coleta logs automaticamente" as F3
+  rectangle "Painel de suporte humano\n• mostra tickets e status\n• botão: 'Permitir acesso temporário seguro'" as F4
+}
+
+L2 -[hidden]-> L2
+
+partition "**Backstage (Infraestrutura e Suporte)**" as BACK {
+  rectangle "Base de conhecimento estruturada\n• artigos, tutoriais e FAQs\n• tags por módulo (NF-e, NFC-e, NFS-e, financeiro)" as B1
+  rectangle "IA de suporte (LLM privado)\n• busca semântica na base\n• análise de logs e histórico do usuário" as B2
+  rectangle "Gerenciador de tickets\n• cria ticket com contexto automático\n• atribui ao setor correto" as B3
+  rectangle "Sistema de acesso temporário\n• gera token de acesso limitado\n• expira automaticamente e registra auditoria" as B4
+}
+
+L3 -[hidden]-> L3
+
+partition "**Evidências / Registros**" as ART {
+  rectangle "Histórico de artigos lidos / chats\n• rastreabilidade de tentativas de solução" as A1
+  rectangle "Ticket e logs anexados\n• mensagens + contexto do erro" as A2
+  rectangle "Registro de acesso temporário (auditoria)\n• data, hora, usuário, motivo" as A3
+}
+
+' FLUXOS
+U1 --> F1
+U2 --> F2
+F2 --> B1
+B1 --> F2 : "Artigos sugeridos"
+F2 --> B2
+B2 --> F3 : "Sugestão via IA"
+U4 --> F3
+F3 --> B3 : "Gerar ticket se não resolvido"
+F3 --> U3 : "Solução sugerida"
+B3 --> F4
+F4 --> B4
+B4 --> A3
+F1 --> A1
+F3 --> A2
+
+' NOTAS
+note right of B2
+IA privada treinada em dados da base;\ncapaz de interpretar mensagens de erro\n(SEFAZ, prefeitura, financeiro) e sugerir ações.
+end note
+
+note right of B4
+Modo suporte temporário:\nacesso autorizado por tempo limitado;\nauditoria completa registrada em logs.
+end note
+
+note right of F3
+Chat pode anexar logs técnicos automaticamente\n(último XML, retorno SEFAZ, JSON de erro, etc.).
+end note
+@enduml
+
+![Service Blueprint — Suporte Inteligente](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-service-blueprint-suporte.svg)

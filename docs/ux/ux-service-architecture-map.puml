@@ -1,0 +1,80 @@
+@startuml
+title UX Service Architecture Map — MEGASIM One
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333333
+  FontSize 14
+  BorderColor #AAAAAA
+  RoundCorner 10
+}
+skinparam ArrowColor #BBBBBB
+skinparam shadowing false
+
+rectangle "<b>Camada 1 — Usuários e Interfaces</b>" as UI {
+  rectangle "👤 Super Admin\nPainel Global / Planos / Faturamento" as SUPADM
+  rectangle "🏢 Administrador da Empresa (Tenant)\nConfiguração Fiscal / Financeiro / Usuários" as ADM
+  rectangle "🧮 Operadores (Fiscal, PDV, Financeiro)\nEmissão diária / caixa / relatórios" as OPS
+  rectangle "🧰 Suporte Inteligente\nBase + Chat + Acesso Temporário" as SUP
+}
+
+rectangle "<b>Camada 2 — Experiências-Chave (UX Blueprints)</b>" as EXP {
+  rectangle "📜 Emissão Fiscal (NF-e / NFC-e / NFS-e)\n→ PlantUML: ux-service-blueprint-emissao.puml" as BLUEMISSAO
+  rectangle "💰 Financeiro Integrado\n→ geração automática de contas / relatórios" as BLUEFIN
+  rectangle "🤖 Suporte Inteligente (IA + BK + Auditoria)\n→ PlantUML: ux-service-blueprint-suporte.puml" as BLUESUP
+}
+
+rectangle "<b>Camada 3 — Serviços de Negócio</b>" as CORE {
+  rectangle "🔄 Orquestrador Fiscal\n(NF-e / NFC-e / NFS-e)" as SVCFISCAL
+  rectangle "💸 Serviço Financeiro\n(Contas, Pagamentos, Cobranças)" as SVCFIN
+  rectangle "📈 Relatórios e BI\n(Agregação / Exportação / KPIs)" as SVCBI
+  rectangle "📬 Notificações e Automações\n(E-mails, Webhooks, Lembretes)" as SVCNOT
+  rectangle "🧠 Módulo IA / LLM Privado\n(Assistente / Recomendação / Suporte)" as SVCIA
+}
+
+rectangle "<b>Camada 4 — Infraestrutura Multi-Tenant</b>" as INFRA {
+  rectangle "🏗️ Core Multi-Tenant\n(Isolamento de dados e configs por empresa)" as TENANT
+  rectangle "🔐 Autenticação / SSO\n(Login + MFA + Tokens temporários)" as AUTH
+  rectangle "🗄️ Banco de Dados\n(PostgreSQL / Redis / Armazenamento XML/PDF)" as DB
+  rectangle "☁️ Integrações Externas\n(SEFAZ, Prefeituras, Gateways de Pagamento)" as INTEG
+  rectangle "📊 Observabilidade / Logs\n(Monitoramento, alertas, métricas UX)" as OBS
+}
+
+' CONEXÕES
+SUPADM --> BLUEMISSAO
+ADM --> BLUEMISSAO
+OPS --> BLUEMISSAO
+ADM --> BLUEFIN
+SUP --> BLUESUP
+
+BLUEMISSAO --> SVCFISCAL
+BLUEFIN --> SVCFIN
+BLUESUP --> SVCIA
+BLUESUP --> SVCNOT
+
+SVCFISCAL --> INTEG
+SVCFIN --> SVCNOT
+SVCFIN --> SVCBI
+SVCNOT --> SVCIA
+SVCIA --> OBS
+
+CORE --> TENANT
+CORE --> AUTH
+CORE --> DB
+CORE --> OBS
+
+' RELACIONAMENTOS ENTRE BLUEPRINTS
+BLUEMISSAO --> BLUEFIN : gera lançamentos
+BLUEFIN --> BLUESUP : tickets automáticos
+BLUESUP --> BLUEMISSAO : ajuda contextual
+
+note right of CORE
+Núcleo funcional que orquestra todos os módulos de negócio.
+Cada tenant tem isolamento lógico e financeiro.
+end note
+
+note right of SVCIA
+IA atua em 3 níveis:\n• suporte contextual (FAQ + logs)\n• análise preditiva (churn / rejeição)\n• recomendação de ações automáticas
+end note
+@enduml
+![UX Service Architecture Map](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-service-architecture-map.svg)

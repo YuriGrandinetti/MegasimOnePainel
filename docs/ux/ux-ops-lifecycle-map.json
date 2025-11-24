@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UX Ops Lifecycle Map — MEGASIM One",
+  "description": "Modelo JSON do ciclo operacional de UX (UX Ops) integrando coleta, análise, insight, ação e governança.",
+  "type": "object",
+  "properties": {
+    "ciclo": {
+      "type": "array",
+      "description": "Etapas principais do ciclo UX Ops.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "etapa": { "type": "string" },
+          "descricao": { "type": "string" },
+          "responsaveis": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "ferramentas": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "entradas": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "saidas": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "proxima_etapa": { "type": "string" }
+        },
+        "required": ["etapa", "descricao", "responsaveis", "proxima_etapa"]
+      }
+    }
+  },
+  "examples": [
+    {
+      "ciclo": [
+        {
+          "etapa": "Coleta",
+          "descricao": "Captura automática de eventos UX, logs fiscais, financeiros e de suporte.",
+          "responsaveis": ["UX Ops", "DevOps"],
+          "ferramentas": ["Mixpanel", "PostHog", "Elastic", "GA4"],
+          "entradas": ["Eventos de uso", "Logs back-end", "Pesquisas In-App"],
+          "saidas": ["Telemetria padronizada"],
+          "proxima_etapa": "Análise"
+        },
+        {
+          "etapa": "Análise",
+          "descricao": "Modelos de IA e scripts analíticos processam métricas e identificam padrões.",
+          "responsaveis": ["Data Team", "IA"],
+          "ferramentas": ["Azure OpenAI", "Power BI", "Python ETL"],
+          "entradas": ["Telemetria UX", "Logs fiscais", "Financeiro"],
+          "saidas": ["Relatórios e padrões detectados"],
+          "proxima_etapa": "Insight"
+        },
+        {
+          "etapa": "Insight",
+          "descricao": "Geração de recomendações automáticas e alertas para UX e Produto.",
+          "responsaveis": ["UX Ops", "Produto"],
+          "ferramentas": ["Slack Bot", "Metabase", "Notion"],
+          "entradas": ["Relatórios da IA", "Logs observáveis"],
+          "saidas": ["Alertas e recomendações UX"],
+          "proxima_etapa": "Ação"
+        },
+        {
+          "etapa": "Ação",
+          "descricao": "Implementação de melhorias, testes A/B, revisões de design e rollout.",
+          "responsaveis": ["UX Designer", "Produto", "Engenharia"],
+          "ferramentas": ["Figma", "Linear", "GitHub"],
+          "entradas": ["Recomendações UX", "Priorizações de backlog"],
+          "saidas": ["Nova versão de produto"],
+          "proxima_etapa": "Governança"
+        },
+        {
+          "etapa": "Governança",
+          "descricao": "Revisão ética, acessibilidade, LGPD e atualização dos padrões UX.",
+          "responsaveis": ["UX Governance", "Jurídico", "Super Admin"],
+          "ferramentas": ["Confluence", "Checklist UX", "Policy Repo"],
+          "entradas": ["Relatórios de Ação", "Logs de decisão"],
+          "saidas": ["Padrões revisados e aprovados"],
+          "proxima_etapa": "Feedback Contínuo"
+        },
+        {
+          "etapa": "Feedback Contínuo",
+          "descricao": "Monitoramento pós-ação, recalibração da IA e início de novo ciclo.",
+          "responsaveis": ["IA", "UX Ops"],
+          "ferramentas": ["Grafana", "Power BI", "Data Lake"],
+          "entradas": ["Métricas pós-release", "Feedback de usuários"],
+          "saidas": ["Modelos IA ajustados", "Roadmap UX atualizado"],
+          "proxima_etapa": "Coleta"
+        }
+      ]
+    }
+  ]
+}

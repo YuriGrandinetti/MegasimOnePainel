@@ -1,0 +1,45 @@
+@startuml
+title UX Governance Map — MEGASIM One
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333333
+  FontSize 14
+  BorderColor #AAAAAA
+  RoundCorner 10
+}
+skinparam ArrowColor #777777
+skinparam shadowing false
+
+rectangle "🎯 Estratégia UX\nDefine visão de experiência e princípios\n(Responsável: Super Admin + Design Lead)" as STRAT
+rectangle "📋 Planejamento UX\n• Roadmaps trimestrais\n• Backlog priorizado (valor × esforço)\n(Responsável: UX + Produto)" as PLAN
+rectangle "🎨 Design & Pesquisa\n• Personas, jornadas, wireframes, protótipos\n• Testes de usabilidade\n(Responsável: UX Designer + Pesquisa)" as DESIGN
+rectangle "🧩 Desenvolvimento & QA\n• Implementação conforme critérios de aceitação UX\n• Testes automatizados e manuais\n(Responsável: Engenharia + QA)" as DEV
+rectangle "🧠 IA e Observabilidade UX\n• Coleta de métricas reais de uso\n• Análise automática de sucesso / fricção\n(Responsável: Data / IA Team)" as OBS
+rectangle "🔁 Feedback e Melhoria Contínua\n• Revisão mensal de métricas NPS, erros, satisfação\n• Atualização dos padrões de design e linguagem\n(Responsável: UX Ops + Produto)" as FEED
+rectangle "⚖️ Compliance & Auditoria UX\n• Revisão de privacidade (LGPD)\n• Acessibilidade e ética de IA\n(Responsável: Jurídico + UX Governance)" as COMP
+
+STRAT --> PLAN : Direciona visão
+PLAN --> DESIGN : Informa escopo
+DESIGN --> DEV : Entregas validadas
+DEV --> OBS : Monitora uso real
+OBS --> FEED : Relatórios automáticos
+FEED --> PLAN : Retroalimentação do backlog
+FEED --> STRAT : Insights estratégicos
+DESIGN --> COMP : Revisão de acessibilidade e ética
+DEV --> COMP : Verificação LGPD e rastreabilidade
+
+note right of PLAN
+Backlog e Roadmap UX\nbaseados em métricas e feedback real\n(Roadmap → UX Backlog)
+end note
+
+note right of OBS
+Dados coletados via telemetria UX:\n• Tempo médio de tarefa\n• Rejeições fiscais\n• Tickets e satisfação
+end note
+
+note right of COMP
+UX Governance = processo contínuo de\nvalidação ética, acessível e transparente.\nGarante aderência a normas e boas práticas.
+end note
+
+@enduml
+![UX Governance Map](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-governance-map.svg)

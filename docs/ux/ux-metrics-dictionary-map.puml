@@ -1,0 +1,96 @@
+@startuml
+title UX Metrics Governance Map — MEGASIM One
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333
+  FontSize 14
+  BorderColor #AAAAAA
+  RoundCorner 10
+}
+skinparam ArrowColor #777
+skinparam shadowing false
+
+rectangle "🧭 Ativação" as ATIV {
+  rectangle "Tempo até 1ª emissão\n(meta ≤ 3min)" as M1
+  rectangle "Onboarding concluído 24h\n(meta ≥ 80%)" as M2
+  rectangle "Módulos habilitados\n(meta ≥ 1,5)" as M3
+}
+
+rectangle "📜 Emissão" as EMIS {
+  rectangle "Notas por tenant ativo" as M4
+  rectangle "Usuários com emissão semanal" as M5
+}
+
+rectangle "✅ Qualidade Fiscal" as QUAL {
+  rectangle "Taxa de rejeição ≤ 2%" as M6
+  rectangle "Tempo de correção ≤ 10min" as M7
+  rectangle "Falhas certificado ↓ 50%" as M8
+}
+
+rectangle "💰 Financeiro" as FIN {
+  rectangle "CR automáticas ≥ 95%" as M9
+  rectangle "Tempo baixa ≤ 24h" as M10
+  rectangle "Conciliação ≥ 98%" as M11
+}
+
+rectangle "🛟 Suporte" as SUP {
+  rectangle "IA resolve ≥ 50%" as M12
+  rectangle "1ª resposta ≤ 15min" as M13
+  rectangle "Tickets/100 emissões ↓" as M14
+}
+
+rectangle "🙂 Experiência" as EXP {
+  rectangle "NPS ≥ 70 / CSAT ≥ 4,5" as M15
+  rectangle "Tarefas sem erro ≥ 85%" as M16
+  rectangle "Adoção features ≥ 60%" as M17
+}
+
+' Fontes e Responsáveis
+rectangle "📊 Fontes de Dados" as SRC {
+  rectangle "Eventos UX (front)" as S1
+  rectangle "Logs Fiscais (back)" as S2
+  rectangle "Financeiro (API interna)" as S3
+  rectangle "Suporte / IA" as S4
+}
+
+rectangle "👥 Responsáveis" as OWN {
+  rectangle "UX + Produto" as O1
+  rectangle "Engenharia Fiscal" as O2
+  rectangle "Financeiro / Backoffice" as O3
+  rectangle "Suporte / IA" as O4
+  rectangle "UX Governance" as O5
+}
+
+' Conexões
+ATIV --> S1
+EMIS --> S2
+QUAL --> S2
+FIN --> S3
+SUP --> S4
+EXP --> S1
+
+S1 --> O1
+S2 --> O2
+S3 --> O3
+S4 --> O4
+S1 --> O5
+S2 --> O5
+S3 --> O5
+S4 --> O5
+
+' Notas explicativas
+note right of SRC
+📈 Fontes alimentam o dashboard UX:\n• Telemetria front (UX)\n• Logs fiscais e financeiros\n• Interações IA / tickets
+end note
+
+note right of OWN
+🔁 Governança contínua:\n• UX Ops audita métricas\n• Produto ajusta metas\n• IA coleta padrões de uso
+end note
+
+note right of QUAL
+🎯 Métricas críticas de experiência:\n• Rejeição ≤ 2%\n• Correção ≤ 10 min\n• Certificados expiram com alerta proativo
+end note
+@enduml
+
+![UX Metrics Governance Map](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-metrics-dictionary-map.svg)

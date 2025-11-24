@@ -1,0 +1,33 @@
+@startuml
+title Matriz Valor × Esforço — UX Backlog (MEGASIM One)
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333333
+  FontSize 14
+  BorderColor #999999
+  RoundCorner 8
+}
+skinparam ArrowColor #BBBBBB
+skinparam shadowing false
+
+rectangle "🟩 **Alta Prioridade**\n\n1️⃣ Onboarding Fiscal Unificado\n2️⃣ Criação Automática de Tenant\n3️⃣ Dashboard Global\n4️⃣ Emissão Guiada\n6️⃣ Alertas Automáticos\n12️⃣ Permissões Customizáveis" as Alta {
+}
+
+rectangle "🟨 **Média Prioridade**\n\n5️⃣ Financeiro Integrado\n7️⃣ Painel de Suporte\n8️⃣ Comunicações Automáticas\n9️⃣ Relatórios Contadores\n11️⃣ Dashboard Financeiro" as Media {
+}
+
+rectangle "🟦 **Baixa Prioridade / Futuro**\n\n10️⃣ Chat Contextual / IA\n14️⃣ Painel BI / API Externa" as Baixa {
+}
+
+rectangle "Eixo X: Esforço (baixo → alto)\nEixo Y: Valor (baixo → alto)" as Eixos {
+}
+
+Alta -[hidden]-> Media
+Media -[hidden]-> Baixa
+
+Alta -down-> Media : + Esforço / - Valor
+Media -down-> Baixa : + Esforço / - Valor
+@enduml
+
+![Matriz UX Backlog](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-backlog-matriz.svg)

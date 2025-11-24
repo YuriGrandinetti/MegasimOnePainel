@@ -1,0 +1,33 @@
+@startuml
+title Jornada 3: NFC-e (PDV) - MEGASIM One
+
+start
+:Abrir Caixa (suprimento inicial);
+:Tela PDV - adicionar itens (scanner/código);
+if (Identificar cliente?) then (Sim)
+  :Informar CPF/CNPJ (opcional);
+endif
+:Selecionar Forma de Pagamento (Pix/Cartão/Dinheiro);
+:Emitir NFC-e;
+
+if (Conectado à SEFAZ?) then (Sim)
+  :Transmitir;
+  if (Autorizada?) then (Sim)
+    :Gerar DANFE NFC-e / QR Code;
+    :Imprimir / Enviar (e-mail/WhatsApp);
+  else (Rejeitada)
+    :Exibir motivo e ação;
+    :Ajustar e reenviar;
+  endif
+else (Não)
+  :Contingência (salvar offline);
+  :Fila para sincronizar depois;
+endif
+
+partition "Pós-venda" {
+  :Cancelamento (no prazo permitido);
+}
+
+:Fechar Caixa (sangria, resumo por meio de pagamento);
+stop
+@enduml

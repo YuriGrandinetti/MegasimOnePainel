@@ -1,0 +1,87 @@
+@startuml
+title UX Dashboard Metrics Map — MEGASIM One
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333
+  FontSize 14
+  BorderColor #AAAAAA
+  RoundCorner 10
+}
+skinparam ArrowColor #BBBBBB
+skinparam shadowing false
+
+rectangle "🧭 **Ativação**" as ATIV {
+  rectangle "Tempo até 1ª emissão\n(meta: ≤ 3 min)" as M1
+  rectangle "% tenants que concluem onboarding em 24h\n(meta: ≥ 80%)" as M2
+  rectangle "% módulos habilitados por tenant (NF-e/NFC-e/NFS-e)\n(meta: ≥ 1,5 em média)" as M3
+}
+
+rectangle "📜 **Emissão**" as EMIS {
+  rectangle "Notas/dia por tenant ativo\n(meta: baseline + tendência↑)" as M4
+  rectangle "% usuários com emissão semanal\n(meta: ≥ 70%)" as M5
+}
+
+rectangle "✅ **Qualidade Fiscal**" as QUAL {
+  rectangle "Taxa de rejeição (SEFAZ/Prefeitura)\n(meta: ≤ 2%)" as M6
+  rectangle "Reemissão após rejeição (tempo médio)\n(meta: ≤ 10 min)" as M7
+  rectangle "Falhas por certificado (senha/expirado)\n(meta: ↓ 50%/trim)" as M8
+}
+
+rectangle "💰 **Financeiro**" as FIN {
+  rectangle "CR criado automaticamente por nota a prazo\n(meta: ≥ 95%)" as M9
+  rectangle "Tempo até baixa após recebimento\n(meta: ≤ 24h)" as M10
+  rectangle "Acurácia de conciliação (Pix/Cartão)\n(meta: ≥ 98%)" as M11
+}
+
+rectangle "🛟 **Suporte**" as SUP {
+  rectangle "% dúvidas resolvidas por ajuda contextual/IA\n(meta: ≥ 50%)" as M12
+  rectangle "Tempo médio de 1ª resposta (ticket)\n(meta: ≤ 15 min)" as M13
+  rectangle "Tickets por 100 emissões\n(meta: ↓ trimestre a trimestre)" as M14
+}
+
+rectangle "🙂 **Experiência**" as EXP {
+  rectangle "NPS / CSAT por jornada\n(meta: NPS ≥ 70 / CSAT ≥ 4,5)" as M15
+  rectangle "Tarefas principais concluídas sem erro\n(meta: ≥ 85%)" as M16
+  rectangle "Adoção de features-chave (assistente, exportações)\n(meta: ≥ 60%)" as M17
+}
+
+' Conexões com fontes de dados
+rectangle "📊 **Fontes e Telemetria**" as SRC {
+  rectangle "Eventos UX (front)\n• tempo_tarefa\n• clique_ajuda\n• escolha_modulo" as S1
+  rectangle "Logs fiscais (back)\n• rejeicao\n• protocolo\n• certificado_erro" as S2
+  rectangle "Financeiro (back)\n• cr_criado\n• baixa_pagamento\n• conciliacao_ok" as S3
+  rectangle "Suporte/IA\n• artigo_visto\n• ticket_aberto\n• chat_resolvido" as S4
+}
+
+ATIV --> S1
+EMIS --> S2
+QUAL --> S2
+FIN --> S3
+SUP --> S4
+EXP --> S1
+
+' Frequência e responsáveis
+rectangle "⏱️ **Frequência & Responsáveis**" as GOV {
+  rectangle "Atualização: diária (automática)\nRevisão: quinzenal (UX + Produto + Engenharia)" as G1
+  rectangle "Alertas: Slack/E-mail (limiares)\nAuditoria: mensal (UX Ops)" as G2
+}
+
+S1 --> G1
+S2 --> G1
+S3 --> G1
+S4 --> G1
+G1 --> G2
+
+note right of ATIV
+Perguntas:\n• O onboarding é rápido?\n• Quantos módulos são ativados?
+end note
+
+note right of QUAL
+Perguntas:\n• Por que rejeita?\n• Mensagens e correções são claras?
+end note
+
+note right of SUP
+Perguntas:\n• IA está resolvendo?\n• Quando acionar humano?
+end note
+@enduml

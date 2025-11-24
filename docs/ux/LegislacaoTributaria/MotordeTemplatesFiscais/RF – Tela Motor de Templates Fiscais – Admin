@@ -1,0 +1,383 @@
+# RF – Tela Motor de Templates Fiscais – Admin
+
+## 1. Objetivo
+
+Disponibilizar, no **Painel de Administração**, uma tela única para:
+
+- **Consultar, criar, editar, clonar e desativar** templates fiscais (`fiscal_template`);
+- **Manter regras fiscais** associadas a cada template (`fiscal_template_regra`);
+- **Visualizar a auditoria** de alterações realizadas no motor de templates (`auditoria_fiscal_template`).
+
+A tela deve ser focada em **simplicidade e produtividade**, permitindo que um usuário administrativo configure as lógicas fiscais que serão usadas pelo Motor de Templates Fiscais no cálculo de tributos e na sugestão de CFOP/CST/CSOSN/aliquotas.
+
+---
+
+## 2. Escopo
+
+### 2.1. Incluso
+
+- Listagem e filtro de **templates fiscais**.
+- Ações sobre templates:
+  - Criar novo template;
+  - Editar cabeçalho de template;
+  - Clonar template;
+  - Ativar/Inativar template;
+  - Criar nova versão de um template existente.
+- Visualização e manutenção das **regras fiscais** associadas ao template selecionado.
+- Visualização da **auditoria** (histórico de alterações) dos templates e regras.
+
+### 2.2. Fora de escopo (nesta versão)
+
+- Exportar/importar templates em massa (CSV/Excel/JSON).
+- Comparação visual de versões de templates.
+- Visualização avançada de “diff” entre `dados_anteriores` e `dados_novos`.
+- Configurações avançadas de herança/composição entre templates.
+
+---
+
+## 3. Atores
+
+- **Admin Fiscal**  
+  Usuário com permissão para administrar templates fiscais, regimes, segmentos e regras por NCM/UF/Operação.
+
+- **Admin Sistema / Suporte**  
+  Usuário técnico que pode atuar em ajustes e correções de templates em produção.
+
+---
+
+## 4. Localização no sistema
+
+Menu lateral:
+
+> **Administração → Motor de Templates Fiscais**
+
+Acesso à tela principal:  
+`/admin/motor-templates-fiscais` (URL apenas ilustrativa).
+
+---
+
+## 5. Estrutura geral da tela
+
+A tela será composta por três áreas principais:
+
+1. **Faixa de Filtros** (topo)
+2. **Lista de Templates** (coluna esquerda, abaixo dos filtros)
+3. **Painel de Detalhes do Template Selecionado** (coluna direita, com abas)
+
+### 5.1. Faixa de filtros
+
+Campos:
+
+- **Regime tributário**  
+  - Tipo: combo obrigatório/seleção múltipla (configurável)  
+  - Origem: `dom_regime_tributario_cliente`  
+  - Exibição: `descricao`
+
+- **Segmento**  
+  - Tipo: combo  
+  - Origem: `dom_segmento_cliente`  
+  - Exibição: `descricao`
+
+- **UF origem**  
+  - Tipo: combo de UFs (lista fixa ou tabela de domínio)  
+
+- **UF destino**  
+  - Tipo: combo de UFs  
+
+- **NCM**  
+  - Tipo: campo de texto com autocomplete  
+  - Origem: `dom_ncm` (campo `ncm_codigo` + `descricao`)  
+
+- **Operação fiscal**  
+  - Tipo: combo  
+  - Origem: `dom_operacao_fiscal`  
+  - Exibição: `codigo - descricao`
+
+- **Ativo?**  
+  - Tipo: combo  
+  - Valores: `Ativos`, `Inativos`, `Todos` (default: `Ativos`)
+
+Botões:
+
+- **[Filtrar]**
+- **[Limpar]**
+
+#### Comportamento
+
+- Ao clicar em **[Filtrar]**, o sistema filtra a lista de templates abaixo conforme os parâmetros informados.
+- Ao clicar em **[Limpar]**, o sistema:
+  - Limpa todos os campos de filtro;
+  - Recarrega a lista com um conjunto padrão (ex.: últimos templates criados ou todos os ativos).
+
+---
+
+### 5.2. Lista de templates (coluna esquerda)
+
+#### 5.2.1. Cabeçalho da lista
+
+- Título: **Templates encontrados**
+- Badge opcional exibindo a quantidade:
+  - Ex.: `15 templates encontrados`
+- Botão principal:
+  - **[+ Novo Template]**
+
+#### 5.2.2. Grade de templates
+
+Colunas mínimas:
+
+- `Nome`  
+  - Ex.: “SN – Varejo Mercado – SP → SP – Venda interna NCM 22029900”
+- `Regime`  
+  - Ex.: “Simples Nacional”
+- `Segmento`  
+  - Ex.: “Varejo Mercado”
+- `UF Origem`  
+  - Ex.: “SP”
+- `UF Destino`  
+  - Ex.: “SP”
+- `NCM`  
+  - Ex.: “22029900”
+- `Operação`  
+  - Ex.: “VENDA_INTERNA”
+- `Versão`  
+  - Ex.: “3”
+- `Vigência`  
+  - Ex.: “01/01/2025 – 31/12/2025” ou “a partir de 01/01/2025”
+- `Status`  
+  - Ex.: “Ativo” / “Inativo”
+- `Ações`  
+  - Ícones:
+    - ✏️ Editar
+    - 📄 Clonar
+    - ⏹ Ativar/Inativar
+
+#### 5.2.3. Comportamentos
+
+- Clique simples em uma linha:
+  - Seleciona o template e carrega os detalhes na coluna direita.
+- Duplo clique:
+  - Abre o modal de **Edição de Template**.
+- Botão **[+ Novo Template]**:
+  - Abre modal de criação de cabeçalho de template (ver item 6.1).
+- Ícone **Clonar**:
+  - Abre modal de confirmação, criando um novo template com:
+    - Mesmo cabeçalho (permitindo ajustes antes de salvar);
+    - Mesmas regras (`fiscal_template_regra` clonadas).
+- Ícone **Ativar/Inativar**:
+  - Alterna o status de `ativo` do template, com confirmação.
+
+---
+
+### 5.3. Painel de detalhes do template selecionado (coluna direita)
+
+Quando um template é selecionado na lista, o painel direito exibe:
+
+#### 5.3.1. Cabeçalho do painel de detalhes
+
+Informações:
+
+- Nome do template
+- Regime / Segmento
+- UF Origem → UF Destino
+- NCM
+- Operação fiscal
+- Versão
+- Vigência
+- Status (Ativo/Inativo)
+
+Exemplo:
+
+> **SN – Varejo Mercado – SP → SP – Venda interna NCM 22029900**  
+> Simples Nacional · Varejo Mercado · SP → SP · NCM 22029900 · VENDA_INTERNA  
+> Versão 3 · Vigente de 01/01/2025 a 31/12/2025 · **Ativo**
+
+Botões no cabeçalho de detalhes:
+
+- **[Editar cabeçalho]**
+- **[Nova versão]**
+
+#### 5.3.2. Abas
+
+- Aba 1: **Regras fiscais**
+- Aba 2: **Auditoria**
+
+---
+
+## 6. Funcionalidades detalhadas
+
+### 6.1. Criação / Edição de Template (cabeçalho)
+
+Acessos:
+
+- Botão **[+ Novo Template]** na lista;
+- Botão **[Editar cabeçalho]** no painel de detalhes;
+- Botão **[Nova versão]** no painel de detalhes.
+
+Campos do modal:
+
+- `Nome do template` (texto, obrigatório)
+- `Regime tributário` (combo, obrigatório)
+- `Segmento` (combo, obrigatório)
+- `UF origem` (combo, obrigatório)
+- `UF destino` (combo, obrigatório)
+- `NCM` (autocomplete, obrigatório)
+- `Operação fiscal` (combo, obrigatório)
+- `Tipo de item fiscal` (combo – `dom_tipo_item_fiscal`)
+- `Versão`  
+  - Em criação: default = 1  
+  - Em nova versão: sugerir `versão atual + 1`
+- `Vigência início` (data, obrigatória)
+- `Vigência fim` (data, opcional)
+- `Ativo` (checkbox, default: marcado)
+- `Descrição` (texto, opcional)
+
+Botões:
+
+- **[Salvar]**
+- **[Cancelar]**
+
+Regras de negócio:
+
+- RN-01: Não permitir **sobreposição de vigência** para o mesmo conjunto de:
+  - Regime, segmento, UF origem, UF destino, NCM, operação, tipo_item_fiscal
+  - e mesma versão ativa.
+- RN-02: Não permitir salvar sem campos obrigatórios.
+- RN-03: `Nova versão` deve:
+  - Sugerir a mesma configuração do template atual, alterando somente `versão` e intervalo de vigência (deve ser ajustado pelo usuário).
+
+---
+
+### 6.2. Aba “Regras fiscais”
+
+Aba associada às entradas de `fiscal_template_regra` para o `template_id` selecionado.
+
+#### 6.2.1. Grade de regras
+
+Colunas:
+
+- `CFOP` (código + descrição resumida)
+- `CST ICMS` (código + resumo)
+- `CSOSN` (código + resumo)
+- `CST PIS`
+- `CST COFINS`
+- `Alíquota ICMS`
+- `Alíquota PIS`
+- `Alíquota COFINS`
+- `Alíquota IPI`
+- `Redução BC ICMS`
+- `Modo cálculo ST`
+- `Observação fiscal`
+- `Ações` (✏️ Editar, 🗑 Excluir)
+
+#### 6.2.2. Ações
+
+- **[+ Adicionar regra]**
+  - Abre modal de criação de regra.
+- Ícone **Editar**:
+  - Abre modal de edição da regra selecionada.
+- Ícone **Excluir**:
+  - Solicita confirmação antes de excluir.
+
+#### 6.2.3. Campos do modal de regra fiscal
+
+- `CFOP` (combo/autocomplete – origem: `dom_cfop`)
+- `CST ICMS` (combo – origem: `dom_cst_icms`)
+- `CSOSN` (combo – origem: `dom_sn_csosn`)
+- `CST PIS` (combo – origem: `dom_cst_pis`)
+- `CST COFINS` (combo – origem: `dom_cst_cofins`)
+- `Alíquota ICMS` (numérico, opcional)
+- `Alíquota PIS` (numérico, opcional)
+- `Alíquota COFINS` (numérico, opcional)
+- `Alíquota IPI` (numérico, opcional)
+- `Redução BC ICMS` (numérico, opcional)
+- `Modo cálculo ST` (combo simples ou texto curto)
+- `Observação fiscal` (textarea)
+
+Botões:
+
+- **[Salvar]**
+- **[Cancelar]**
+
+Regras de negócio:
+
+- RN-04: Deve ser impedida a criação de **duplicidade de regra** para o mesmo template e mesmo CFOP, quando isso não for desejado (pode ser parametrizável).
+- RN-05: Campos numéricos devem aceitar apenas valores válidos (0–100 para alíquotas em %, por padrão).
+- RN-06: Exclusão de regra deve exigir confirmação.
+
+---
+
+### 6.3. Aba “Auditoria”
+
+Exibe informações da tabela `auditoria_fiscal_template`, filtradas por:
+
+- `template_id` igual ao template selecionado.
+- E/ou `template_regra_id` das regras pertencentes ao template (implementação pode variar).
+
+#### 6.3.1. Grade de auditoria
+
+Colunas:
+
+- `Data/Hora` (`data_evento`)
+- `Usuário` (`usuario`)
+- `Origem` (`origem` – UI, API, JOB, etc.)
+- `Tipo entidade` (`tipo_entidade` – TEMPLATE / REGRA)
+- `Operação` (`operacao` – INSERT / UPDATE / DELETE)
+- `Resumo` (campo derivado, opcional; pode ser uma linha sintética)
+
+#### 6.3.2. Ações
+
+- Clique em uma linha:
+  - Abre modal com detalhes da auditoria:
+    - `dados_anteriores` (JSON formatado)
+    - `dados_novos` (JSON formatado)
+    - Informações de contexto (usuário, origem, data/hora, tipo, operação)
+
+Não é permitido:
+
+- Editar registros de auditoria.
+- Excluir registros de auditoria via UI.
+
+---
+
+## 7. Regras de negócio gerais
+
+- RN-07: Todas as alterações em `fiscal_template` e `fiscal_template_regra` devem gerar registro em `auditoria_fiscal_template` (via trigger ou camada de aplicação).
+- RN-08: Templates **inativos** não devem ser sugeridos pelo Motor de Templates em novos cálculos fiscais.
+- RN-09: Não é permitido deletar fisicamente um template que já tenha sido utilizado em documentos fiscais (neste caso, apenas inativar).
+- RN-10: Campos de domínio (regime, segmento, CFOP, CST etc.) devem ser selecionados exclusivamente a partir das respectivas tabelas `dom_*`, evitando valores livres.
+
+---
+
+## 8. Mensagens de erro e feedback ao usuário
+
+Exemplos:
+
+- Ao salvar template com campos obrigatórios faltando:
+  - “Preencha todos os campos obrigatórios.”
+- Ao tentar sobrepor vigência:
+  - “Já existe um template com o mesmo regime, segmento, UFs, NCM e operação dentro deste período de vigência.”
+- Ao excluir regra:
+  - Confirmação: “Tem certeza que deseja excluir esta regra fiscal? Esta ação não poderá ser desfeita.”
+- Ao salvar com sucesso:
+  - “Template fiscal salvo com sucesso.”
+- Ao salvar regra com sucesso:
+  - “Regra fiscal salva com sucesso.”
+
+---
+
+## 9. Segurança e permissões
+
+- Apenas usuários com perfil **Admin Fiscal** ou permissão equivalente podem:
+  - Criar/editar/clonar/ativar/inativar templates;
+  - Criar/editar/excluir regras fiscais.
+- Usuários sem permissão podem ter acesso **somente leitura** à tela (opcional, a definir).
+
+---
+
+## 10. Requisitos não funcionais (nível UX)
+
+- A tela deve ser responsiva, porém otimizada para uso em **desktop**.
+- A busca por NCM deve ter autocomplete performático mesmo com grande volume de registros (uso de paginação, limite de resultados por busca).
+- Filtros devem manter os valores selecionados ao navegar entre templates para facilitar ajustes iterativos.
+
+---

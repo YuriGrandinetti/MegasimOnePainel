@@ -1,0 +1,58 @@
+@startuml
+title UX Ops Lifecycle Map — MEGASIM One
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333
+  FontSize 14
+  BorderColor #AAAAAA
+  RoundCorner 10
+}
+skinparam ArrowColor #777
+skinparam shadowing false
+
+' CICLO PRINCIPAL
+rectangle "🎨 **Coleta**\n• Eventos UX\n• Logs Fiscais/Financeiros\n• Pesquisas de satisfação" as COLETA
+rectangle "📊 **Análise**\n• IA + DataOps analisam padrões\n• Identificam gargalos e oportunidades" as ANALISE
+rectangle "💡 **Insight**\n• Relatórios automáticos\n• Sugestões de UX / IA\n• Alertas de melhoria" as INSIGHT
+rectangle "⚙️ **Ação**\n• Implementação e testes A/B\n• Ajustes no produto e design\n• Documentação e rollout" as ACAO
+rectangle "🧠 **Governança**\n• Revisão ética, LGPD, acessibilidade\n• Validação e atualização de padrões" as GOV
+rectangle "🔁 **Feedback Contínuo**\n• Métricas pós-ação\n• Treinamento de IA\n• Novos ciclos" as FEED
+
+COLETA --> ANALISE : dados e eventos
+ANALISE --> INSIGHT : padrões e relatórios
+INSIGHT --> ACAO : propostas priorizadas
+ACAO --> GOV : revisão e validação
+GOV --> FEED : auditoria e aprendizado
+FEED --> COLETA : novos dados pós-ação
+
+' SUB-ENTIDADES / RESPONSÁVEIS
+rectangle "👥 UX Ops" as UXO
+rectangle "🧩 Produto / Engenharia" as PROD
+rectangle "🧠 IA / Data Team" as IA
+rectangle "⚖️ Compliance / UX Gov" as GOVTEAM
+
+UXO -[dotted]-> COLETA
+UXO -[dotted]-> INSIGHT
+PROD -[dotted]-> ACAO
+IA -[dotted]-> ANALISE
+IA -[dotted]-> FEED
+GOVTEAM -[dotted]-> GOV
+
+note right of COLETA
+📥 Ferramentas:\nMixpanel / PostHog / GA4 / Elastic\nCaptura automática de dados UX e logs
+end note
+
+note right of INSIGHT
+📈 Saídas:\n• Relatórios semanais\n• Alertas de UX\n• Recomendações IA automáticas
+end note
+
+note right of GOV
+⚖️ Governança revisa:\n• Ética de IA\n• Privacidade (LGPD)\n• Acessibilidade e consistência visual
+end note
+
+note right of FEED
+🔁 Resultados:\n• Novos datasets\n• Modelos IA recalibrados\n• Roadmap atualizado
+end note
+@enduml
+![UX Ops Lifecycle Map](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-ops-lifecycle-map.svg)

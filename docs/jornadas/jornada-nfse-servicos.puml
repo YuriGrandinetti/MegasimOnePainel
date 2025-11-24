@@ -1,0 +1,29 @@
+@startuml
+title Jornada 4: NFS-e (Serviços / ISS) - MEGASIM One
+
+start
+:Configuração Municipal;
+:Selecionar Município/Provedor;
+:Informar Credenciais (token/usuário/senha/certificado);
+:Definir Código de Serviço (LC 116), Alíquota ISS;
+:Marcar Regras de Retenção (ISS/INSS/IR/PIS/COFINS/CSLL);
+:Teste de Conexão (homologação/produção);
+
+:Emitir NFS-e;
+:Tomador (PJ) / Endereço / IM (se aplicável);
+:Serviço (código + descrição);
+:Base de Cálculo / Deduções (opcional);
+:Selecionar Retenções (se houver);
+:Transmitir RPS → NFS-e;
+
+if (Autorizada?) then (Sim)
+  :Sucesso (enviar ao tomador / histórico);
+  :Gerar Contas a Receber (se a prazo);
+else (Não)
+  :Exibir rejeição (mensagem do provedor);
+  :Ajustar dados / regras e retransmitir;
+endif
+
+:Relatórios de ISS / Exportações;
+stop
+@enduml

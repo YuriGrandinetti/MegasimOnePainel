@@ -1,0 +1,109 @@
+@startuml
+title Service Blueprint — Emissão Fiscal com Suporte Automatizado (MEGASIM One)
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333333
+  FontSize 14
+  BorderColor #BBBBBB
+  RoundCorner 8
+}
+skinparam partition {
+  BackgroundColor #FFFFFF
+  BorderColor #999999
+}
+skinparam note {
+  BackgroundColor #FFFFEE
+  BorderColor #E0DFAF
+}
+skinparam ArrowColor #CCCCCC
+skinparam shadowing false
+
+' LINHAS GUIAS DO BLUEPRINT
+rectangle "<b>Linha de Interação</b>" as L1 #F3F3F3
+rectangle "<b>Linha de Visibilidade</b>" as L2 #F3F3F3
+rectangle "<b>Linha Interna</b>" as L3 #F3F3F3
+
+' CAMADAS
+partition "**Ações do Usuário (Cliente/Operador)**" as USER {
+  rectangle "1) Acessa o sistema e escolhe\n• Tipo de documento: NF-e / NFC-e / NFS-e" as U1
+  rectangle "2) Preenche dados\n• Cliente/Tomador • Itens/Serviço • Pagamento" as U2
+  rectangle "3) Clica **Transmitir**" as U3
+  rectangle "4) Vê resultado\n• Autorizada (PDF/Envio)\n• Rejeitada (mensagem clara + ação sugerida)" as U4
+  rectangle "5) (Se a prazo) acompanha **contas a receber**" as U5
+}
+
+' Linha de interação
+L1 -[hidden]-> L1
+
+partition "**Frontstage (Interface/UX visível)**" as FRONT {
+  rectangle "Assistente guiado\n• validações de campos\n• presets CFOP/CSOSN/NCM/ISS\n• barra de progresso" as F1
+  rectangle "Validação preventiva\n• regras por módulo (NF-e/NFC-e/NFS-e)\n• mensagens em linguagem simples" as F2
+  rectangle "Feedbacks de transmissão\n• spinner/estado • retry • contingência (NFC-e)\n• links: PDF, XML, Enviar" as F3
+  rectangle "Cards pós-ação\n• Próxima tarefa (enviar ao cliente, registrar recebimento)" as F4
+}
+
+' Linha de visibilidade
+L2 -[hidden]-> L2
+
+partition "**Backstage (Serviços/Integrações)**" as BACK {
+  rectangle "Orquestrador Fiscal\n• monta XML (55/65/NFS-e)\n• assina com A1" as B1
+  rectangle "Integração SEFAZ / Prefeitura\n• fila de transmissão\n• timeout e retry\n• parser de retorno" as B2
+  rectangle "Regras de negócio\n• roteamento por UF/município\n• fallback NFC-e offline\n• políticas de numeração/série" as B3
+  rectangle "Gatilhos financeiros\n• criar contas a receber\n• conciliar Pix/Cartão/Boleto" as B4
+}
+
+' Linha interna
+L3 -[hidden]-> L3
+
+partition "**Suporte Interno / Observabilidade**" as SUP {
+  rectangle "Logs estruturados (tenant/usuário)\n• rejeições, timeouts, certificados" as S1
+  rectangle "Alertas automáticos (e-mail/Slack)\n• falha recorrente • certificado vencendo" as S2
+  rectangle "Modo suporte (acesso temporário c/ auditoria)" as S3
+  rectangle "Base de conhecimento / Ajuda contextual" as S4
+}
+
+partition "**Evidências / Artefatos**" as ART {
+  rectangle "XML/JSON de requisição e retorno\n+ Protocolo de autorização" as A1
+  rectangle "DANFE / RPS / NFS-e (PDF/SVG)\n+ comprovantes de envio" as A2
+  rectangle "Lançamentos financeiros\n+ auditoria de alterações" as A3
+}
+
+' FLUXOS (setas simples entre camadas)
+U1 --> F1
+F1 --> B1
+B1 --> B2
+B2 --> F3
+F3 --> U4
+
+U2 --> F2
+F2 --> B3
+B3 --> B2
+
+U3 --> F3
+
+F3 --> B4
+B4 --> U5
+
+' SUPORTE e EVIDÊNCIAS (taps paralelos)
+B2 ..> S1 : eventos/erros
+S1 ..> S2 : regras de alerta
+F3 ..> S4 : links de ajuda
+B2 ..> A1
+F3 ..> A2
+B4 ..> A3
+
+' NOTAS DE CONTEXTO POR MÓDULO
+note right of F2
+<b>NF-e (55):</b> CFOP/CSOSN/NCM, IE, transportadora\n
+<b>NFC-e (65):</b> PDV, contingência offline, QR Code/DANFE NFC-e\n
+<b>NFS-e:</b> município/provedor, código de serviço (LC116), ISS/ret.
+end note
+
+note right of B3
+Roteamento por UF/município;\ntratamento de schemas diversos (ABRASF/GINFES);\npolítica de retry exponencial.
+end note
+@enduml
+
+![Service Blueprint](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-service-blueprint-emissao.svg)
+

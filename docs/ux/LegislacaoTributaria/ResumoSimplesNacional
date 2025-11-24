@@ -1,0 +1,369 @@
+## Pequena empresa no Simples Nacional x Novo Regime Tributário  
+*(foco: ME/EPP do Simples, faturamento até R$ 4,8 mi/ano, como o seu exemplo de empresa com ~5 funcionários)*
+
+### 1. Visão geral rápida por fase
+
+- **2026 – Ano teste**
+  - CBS 0,9% + IBS 0,1% entram em modo “piloto”, compensando PIS/Cofins (sem aumento real de carga). :contentReference[oaicite:0]{index=0}  
+  - **Empresas do Simples em geral ficam dispensadas de destacar esses 0,9%/0,1%** nas notas. :contentReference[oaicite:1]{index=1}  
+
+- **2027 – CBS valendo pra valer + nascimento do “Simples Híbrido”**
+  - PIS/Cofins saem de cena, entra CBS definitiva. :contentReference[oaicite:2]{index=2}  
+  - Simples Nacional continua existindo, mas a empresa **pode escolher**:
+    - continuar no **Simples “clássico”**, tudo dentro do DAS, ou  
+    - aderir ao **“Simples Híbrido”**: IBS/CBS fora do DAS, no regime normal (não cumulativo), gerando crédito para os clientes. :contentReference[oaicite:3]{index=3}  
+
+- **2029–2032 – Transição ICMS/ISS → IBS**
+  - ICMS/ISS vão caindo, IBS vai subindo nas operações em geral. :contentReference[oaicite:4]{index=4}  
+  - Para quem está no Simples, o efeito é mais **indireto** (mudança de alocação dentro do DAS e créditos para clientes).
+
+- **2033 em diante – Novo sistema estável**
+  - Consolidação do modelo CBS + IBS + Imposto Seletivo; antigo sistema (ICMS/ISS/PIS/Cofins) sai definitivamente. :contentReference[oaicite:5]{index=5}  
+  - Simples continua, mas já totalmente adaptado ao novo desenho.
+
+---
+
+### 2. Quadro por fase – foco em empresa do Simples
+
+#### 2.1. Tabela-resumo
+
+| Fase | Situação do Simples Nacional | O que MUDA na prática para a sua ME/EPP | O que NÃO MUDA |
+|------|------------------------------|------------------------------------------|----------------|
+| **2026 – Ano teste CBS/IBS** | Simples **mantido**; DAS continua igual. | Campos de **CBS/IBS 0,9%/0,1%** aparecem nos sistemas fiscais, mas **empresa do Simples, via de regra, não precisa destacar** nas notas. Obrigações acessórias começam a pedir informações novas de CBS/IBS. :contentReference[oaicite:6]{index=6} | Regime de recolhimento principal continua sendo **DAS** com as mesmas faixas de faturamento e anexos. |
+| **2027 – CBS cheia + IS** | Simples continua; regras internas passam a considerar CBS no lugar de PIS/Cofins. | Entra a CBS “pra valer” e sai PIS/Cofins. Aparece a opção de **Simples Híbrido** (pagar IBS/CBS fora do DAS) para gerar créditos para clientes PJ, se fizer sentido. :contentReference[oaicite:7]{index=7} | Você ainda recolhe **um único DAS** se ficar no Simples “clássico”. Limites de faturamento e lógica de enquadramento (ME/ EPP) não mudam estruturalmente. :contentReference[oaicite:8]{index=8} |
+| **2029–2032 – Transição ICMS/ISS → IBS** | Simples ajusta internamente a parcela que antes ia para ICMS/ISS, agora vinculada ao IBS. | A carga para o seu negócio pode se **recalibrar um pouco**, dependendo da atividade, mas o formato (pagar DAS) segue. Se você estiver no Simples Híbrido, o impacto sobre créditos de IBS para clientes fica mais forte conforme o IBS ganha peso. :contentReference[oaicite:9]{index=9} | Você continua enquadrado no Simples enquanto respeitar os limites e regras de permanência. A ideia de “regime simplificado para pequenos negócios” permanece na Constituição e na LC 214. :contentReference[oaicite:10]{index=10} |
+| **A partir de 2033 – Novo modelo consolidado** | Simples totalmente compatível com CBS/IBS e Imposto Seletivo. | Seu DAS já estará 100% “ligado” ao novo sistema. Para quem optar pelo Simples Híbrido, a empresa funciona quase como uma “normal” em IBS/CBS, mas com vantagens do Simples em outros tributos. :contentReference[oaicite:11]{index=11} | O **Simples Nacional não acaba**. Ele continua como regime diferenciado e favorecido, inclusive com a nova figura do **nanoempreendedor** (faturamento até 40,5 mil/ano, isento de IBS/CBS), abaixo do MEI/Simples. :contentReference[oaicite:12]{index=12} |
+
+---
+
+### 3. Detalhando cada fase para uma pequena empresa do Simples
+
+#### 3.1. 2026 – Ano teste (você basicamente “sente o cheiro” da mudança)
+
+- CBS 0,9% e IBS 0,1% entram para calibragem do sistema, mas **sem aumento real de carga** (compensados com PIS/Cofins). :contentReference[oaicite:13]{index=13}  
+- Empresas do **Simples Nacional em regra ficam dispensadas de destacar essas alíquotas** nas notas fiscais, focando mais em adaptar sistemas e cadastros. :contentReference[oaicite:14]{index=14}  
+- Pra você, na prática em 2026:
+  - Continuar usando o **DAS normalmente**.  
+  - Começar a **ajustar ERP, emissão de NF-e/NFC-e/NFS-e** para aceitar campos de IBS/CBS, mesmo que você não destaque ainda. :contentReference[oaicite:15]{index=15}  
+
+#### 3.2. 2027 – CBS valendo + escolha entre Simples “clássico” e “híbrido”
+
+A partir de 2027:
+
+- **CBS passa a valer com alíquota cheia**, substituindo PIS/Cofins. :contentReference[oaicite:16]{index=16}  
+- Para empresas do Simples, a **LC 214/2025** cria duas opções principais: :contentReference[oaicite:17]{index=17}  
+
+1. **Simples “clássico” (padrão)**
+   - Tudo continua “embutido” no DAS (IRPJ, CSLL, CPP, ICMS/ISS, agora CBS/IBS de forma integrada).
+   - Não gera **crédito de IBS/CBS** para quem compra de você (como já acontece hoje com ICMS/ISS/PIS/Cofins, na prática).
+
+2. **Simples Híbrido**
+   - Você **permanece no Simples** para boa parte dos tributos, mas o **IBS e a CBS** passam a ser recolhidos **fora do DAS**, no regime **não cumulativo**.
+   - Isso permite que **seus clientes PJ aproveitem créditos de IBS/CBS**, o que pode ser uma vantagem competitiva se você vende muito para empresas de médio/grande porte.
+   - Em compensação, você passa a conviver com:
+     - apuração mensal normal de IBS/CBS;
+     - mais obrigações acessórias;
+     - necessidade de controle fino de créditos e débitos.
+
+Para uma empresa pequena (até 5 funcionários), a regra de bolso tende a ser:
+
+- **B2C (vende mais para pessoa física / consumidor final)** → provavelmente **vale mais a pena ficar no Simples “clássico”**, pelo menos no começo.  
+- **B2B (vende para outras empresas que precisam de crédito)** → conversar com o contador sobre **Simples Híbrido** pode trazer ganho comercial.
+
+#### 3.3. 2029–2032 – Transição ICMS/ISS → IBS
+
+- ICMS e ISS vão sendo substituídos por IBS, com cronograma gradual até 2032. :contentReference[oaicite:18]{index=18}  
+- Dentro do Simples:
+  - As tabelas do anexo e a **distribuição interna do DAS** mudam “por trás do palco” (mais parcela indo para IBS, menos para ICMS/ISS).
+  - Sua empresa **continua recolhendo pelo DAS**, mas o impacto em carga pode variar por atividade e estado/município.
+
+Se você optar pelo **Simples Híbrido**, o peso do IBS “fora do DAS” fica cada vez maior, então:
+
+- aumenta a importância do **crédito de IBS** para seus clientes;
+- cresce a necessidade de ter **ERP e contabilidade bem ajustados**.
+
+#### 3.4. 2033 em diante – Novo modelo consolidado
+
+- A partir de 2033, o sistema antigo de impostos sobre consumo é extinto; fica o tripé **CBS + IBS + Imposto Seletivo**. :contentReference[oaicite:19]{index=19}  
+- O **Simples Nacional segue existindo**, só que 100% ajustado ao novo desenho:
+  - DAS continua como guia única;
+  - Faixas, sublimites etc. ainda existem (podem ser revisados por lei, mas a lógica permanece); :contentReference[oaicite:20]{index=20}  
+  - figura do **nanoempreendedor (até 40,5 mil/ano, dispensado de IBS/CBS)** passa a ser mais um degrau de formalização. :contentReference[oaicite:21]{index=21}  
+
+---
+
+### 4. Checklist bem prático para uma empresa do Simples (como a do seu cenário)
+
+Você pode usar este checklist no seu `.md` interno do projeto (produto/SaaS + contabilidade):
+
+- [ ] **2025–2026:**  
+  - [ ] Verificar com o contador se sua empresa terá alguma obrigação específica de testes em 2026.  
+  - [ ] Garantir que **sistema de emissão de notas** está pronto para campos de IBS/CBS.  
+- [ ] **Antes de 2027:**  
+  - [ ] Simular com o contador **dois cenários**: Simples clássico x Simples Híbrido.  
+  - [ ] Se você vende para empresas que creditam impostos, avaliar se **vale migrar para o Simples Híbrido**.  
+- [ ] **2027–2028:**  
+  - [ ] Ajustar contratos/comerciais (tabelas de preço) se houver mudança de regime (híbrido) para refletir destaque de CBS/IBS.  
+  - [ ] Monitorar se houve aumento ou redução de carga tributária efetiva.  
+- [ ] **2029–2033:**  
+  - [ ] Acompanhar, com o contador, os efeitos da migração ICMS/ISS → IBS sobre seus preços e margens.  
+  - [ ] Manter **ERP, notas e relatórios contábeis** compatíveis com o novo modelo, especialmente se estiver no Simples Híbrido.  
+
+Se você quiser, no próximo passo eu posso gerar um **arquivo `.md` completo** já estruturado para GitLab ou Wiki (ex.: `docs/reforma_tributaria_simples_pequena_empresa.md`), pronto para você versionar no seu repositório.
+::contentReference[oaicite:22]{index=22}
+
+
+# Reforma Tributária do Consumo e Pequena Empresa no Simples Nacional
+
+> Documento de referência interna para entendimento da Reforma Tributária do Consumo (IVA Dual) aplicada a **micro e pequenas empresas** no **Simples Nacional**.
+
+---
+
+## 1. Visão geral – o que é o “novo regime tributário”
+
+A Reforma Tributária do consumo (EC 132/2023 e legislação complementar) cria um **modelo de IVA Dual** no Brasil:
+
+- **CBS** – Contribuição sobre Bens e Serviços (tributo **federal**).  
+- **IBS** – Imposto sobre Bens e Serviços (tributo **estadual/municipal**, substitui ICMS e ISS).  
+- **IS** – Imposto Seletivo (apelidado de “imposto do pecado”, para produtos nocivos à saúde e ao meio ambiente).
+
+Esses tributos **substituirão gradualmente**:
+
+- PIS e Cofins (tributos federais sobre o faturamento/receita);
+- ICMS (estadual);
+- ISS (municipal);
+- parte relevante do IPI (federal).
+
+### 1.1. Princípios importantes do novo modelo
+
+- **IVA dual não cumulativo**: crédito financeiro integral do imposto pago nas etapas anteriores (reduz “efeito cascata”).  
+- **Cobrança no destino**: imposto devido no local do consumo, e não mais da produção.  
+- **Alíquota padrão + regimes diferenciados**:  
+  - Alíquota de referência (soma CBS + IBS);  
+  - Reduções, isenções ou tratamentos especiais para setores como saúde, educação, transporte, cesta básica, etc.  
+- **Cashback de tributos** para famílias de baixa renda, via devolução parcial dos impostos.  
+- **Simples Nacional é mantido** como regime favorecido para micro e pequenas empresas, com ajustes para integrar CBS/IBS.
+
+---
+
+## 2. Linha do tempo – quando o novo regime entra em vigor
+
+A Reforma do consumo tem **transição gradual**, aproximadamente de **2026 a 2033**:
+
+### 2.1. Cronograma resumido
+
+| Ano/Fase           | Marco principal                                                                                      |
+|--------------------|------------------------------------------------------------------------------------------------------|
+| **2025**           | Regulamentação infraconstitucional, ajustes de legislação e preparação de sistemas.                 |
+| **2026**           | Início da **fase de testes**: CBS 0,9% + IBS 0,1% com compensação (sem aumento efetivo de carga).   |
+| **2027**           | CBS passa a valer “de verdade”; PIS/Cofins são extintos. Início efetivo do **Imposto Seletivo (IS)**.|
+| **2029–2032**      | Fase de transição: ICMS/ISS vão sendo substituídos gradualmente pelo IBS.                            |
+| **A partir de 2033** | Consolidação do novo sistema: consumo tributado basicamente por **CBS + IBS + IS**.               |
+
+> Para **empresas do Simples Nacional**, o impacto direto é mais suave e gradual, mas exige atenção em três pontos:  
+> (i) opção ou não pelo **Simples Híbrido**,  
+> (ii) adequação de **sistemas de emissão fiscal**,  
+> (iii) acompanhamento de **carga tributária efetiva**.
+
+---
+
+## 3. Pequena empresa no Simples – cenário de referência
+
+**Perfil considerado neste documento:**
+
+- Empresa enquadrada no **Simples Nacional** (ME ou EPP);  
+- Faturamento anual até **R$ 4,8 milhões**;  
+- **Até 5 funcionários**;  
+- Emite:
+  - **NF-e** (produto),
+  - **NFC-e** (cupom fiscal eletrônico), e/ou
+  - **NFS-e** (serviço);
+- Operação mista possível: venda para **consumidor final (B2C)** e/ou para **outras empresas (B2B)**.
+
+---
+
+## 4. Impactos por fase para empresas do Simples
+
+### 4.1. 2026 – Ano teste (CBS 0,9% + IBS 0,1%)
+
+- Entra uma **alíquota simbólica** de CBS (0,9%) e IBS (0,1%).  
+- A ideia é **testar sistemas, NF-e, integrações, repartição de receitas**, com **compensação** para evitar aumento real de carga.  
+- Em geral, empresas do **Simples Nacional ficam dispensadas** de destacar essas alíquotas nas notas (as regras específicas podem variar por regulamentação).
+
+**Na prática, para a pequena empresa do Simples:**
+
+- Continua recolhendo o **DAS normalmente**.  
+- Precisa **adequar o sistema de emissão** (ERP, PDV, emissor fiscal) para aceitar novos campos de CBS/IBS, mesmo que não destaque.  
+- Começa a se preparar para a mudança estrutural de PIS/Cofins → CBS.
+
+### 4.2. 2027 – CBS “valendo pra valer” e início de escolha: Simples Clássico x Simples Híbrido
+
+A partir de 2027:
+
+- **CBS passa a valer em alíquota definitiva**, substituindo PIS/Cofins.  
+- Entra o **Imposto Seletivo (IS)** para produtos específicos.  
+- Para empresas do Simples Nacional:
+  - O regime é preservado, mas passa a existir a opção de um **“Simples Híbrido”**.
+
+#### 4.2.1. Simples Clássico (padrão)
+
+- A empresa continua recolhendo **tudo dentro do DAS**:
+  - IRPJ, CSLL, CPP, ICMS, ISS, e agora a parte correspondente de **CBS/IBS** já embutida nas fórmulas do Simples.  
+- Em regra, as vendas da empresa **não geram crédito de IBS/CBS para os clientes** (similar ao que acontece hoje com ICMS/ISS/PIS/Cofins).
+
+#### 4.2.2. Simples Híbrido
+
+- A empresa **continua sendo optante pelo Simples**, mas:
+  - **IBS e CBS saem do DAS** e passam a ser apurados em **regime não cumulativo**, com débito/crédito como nas empresas de lucro presumido/real.  
+  - Os **clientes PJ passam a ter crédito de IBS/CBS** nas compras dessa empresa.  
+- Em compensação:
+  - A empresa ganha **complexidade de apuração** (obrigação acessória, escrituração específica);  
+  - Precisa de **ERP e contabilidade mais estruturados**.
+
+**Regra de bolso para avaliar:**
+
+- Se o negócio é majoritariamente **B2C** (vende para consumidor final):  
+  → Em geral, tende a **continuar no Simples Clássico**.  
+- Se o negócio é fortemente **B2B** (vende para empresas que se creditam de tributos):  
+  → Vale estudar com o contador a opção pelo **Simples Híbrido**, como diferencial competitivo.
+
+### 4.3. 2029–2032 – Transição ICMS/ISS → IBS
+
+- ICMS e ISS vão sendo **reduzidos progressivamente**, enquanto o IBS ganha peso.  
+- No **Simples Clássico**, isso ocorre “por baixo do capô”:
+  - A fórmula de repartição do DAS muda (menos ICMS/ISS, mais IBS), mas o contribuinte continua pagando **uma guia única**.  
+- No **Simples Híbrido**:
+  - IBS já está sendo apurado “por fora” do DAS;
+  - O peso do IBS cresce, aumentando também a relevância dos **créditos de IBS** nas cadeias produtivas.
+
+### 4.4. A partir de 2033 – Novo sistema consolidado
+
+- O modelo de consumo passa a ser essencialmente:
+  - **CBS (federal)**  
+  - **IBS (estadual/municipal)**  
+  - **Imposto Seletivo (IS)**  
+- PIS, Cofins, ICMS, ISS e IPI (salvo exceções) deixam de ser o núcleo da tributação sobre consumo.  
+- O **Simples Nacional permanece**, ajustado:
+  - DAS continua como regime favorecido;  
+  - Limites de faturamento e lógica de ME/EPP permanecem (salvo ajustes pontuais em lei);  
+  - Surge uma figura de **nanoempreendedor**, com faturamento muito baixo, isento de IBS/CBS, como degrau de formalização.
+
+---
+
+## 5. Comparação – Simples Clássico x Simples Híbrido
+
+### 5.1. Tabela comparativa
+
+| Critério                         | Simples Clássico                                      | Simples Híbrido                                                   |
+|---------------------------------|--------------------------------------------------------|--------------------------------------------------------------------|
+| Guia principal de pagamento     | DAS (tudo dentro)                                      | DAS (parte dos tributos) + guias específicas de IBS/CBS           |
+| IBS/CBS                         | Embutidos no DAS                                      | Apurados “por fora”, em regime não cumulativo                     |
+| Crédito de IBS/CBS para clientes| Em geral **não gera crédito**                          | Gera **crédito de IBS/CBS** para clientes PJ                      |
+| Complexidade de apuração        | Menor (modelo semelhante ao atual)                    | Maior (obrigações acessórias, escrituração, controles de crédito) |
+| Perfil ideal                    | B2C, serviços simples, pouco volume fiscal             | B2B, fornecedores de cadeias produtivas que valorizam créditos    |
+| Exigência de sistema/ERP        | Médio, semelhante ao Simples atual                    | Alto: precisa controlar créditos/débitos de IBS/CBS               |
+
+---
+
+## 6. Quadro-resumo por fase – foco na pequena empresa do Simples
+
+### 6.1. Tabela de fases
+
+| Fase                         | Situação do Simples      | O que MUDA na prática                                 | O que NÃO MUDA                                      |
+|------------------------------|--------------------------|--------------------------------------------------------|-----------------------------------------------------|
+| **2026 – Ano teste**         | Simples mantido; DAS igual| Campos de CBS/IBS podem surgir nos sistemas; empresa do Simples, em regra, não destaca 0,9%/0,1%; ajustes de ERP e notas. | Regime principal de recolhimento via DAS.          |
+| **2027 – CBS cheia + IS**    | Simples mantido; opção de Simples Híbrido | Sai PIS/Cofins, entra CBS. Empresa pode escolher entre Simples Clássico ou Híbrido; impacto maior em empresas B2B. | Guia DAS continua existindo; conceito de regime favorecido permanece. |
+| **2029–2032 – ICMS/ISS → IBS** | Simples se ajusta internamente | Recalibração da carga conforme atividade/estado/município; mais peso para IBS (especialmente no Híbrido). | Manutenção do Simples como regime para pequenos negócios. |
+| **2033+ – sistema consolidado** | Simples compatível com CBS/IBS/IS | DAS já totalmente adequando ao novo modelo; Híbrido funcionando com IBS/CBS “por fora”. | O Simples não é extinto; continua como regime especial. |
+
+---
+
+## 7. Checklist prático para o dono da empresa
+
+### 7.1. Planejamento com contabilidade
+
+- [ ] Confirmar com o contador **como a empresa está enquadrada hoje** (anexo, faixa de receita, atividades).  
+- [ ] Pedir ao contador **simulações** comparando:
+  - [ ] **Simples Clássico** x  
+  - [ ] **Simples Híbrido**  
+  com base na **realidade da empresa (B2C x B2B)**.  
+- [ ] Avaliar, com números, se faz sentido **optar pelo Simples Híbrido** em 2027 ou em momento posterior.  
+- [ ] Verificar quais produtos/serviços podem ser afetados por **Imposto Seletivo** (se aplicável).
+
+### 7.2. Planejamento de sistemas (ERP, emissão de notas, financeiro)
+
+- [ ] Confirmar com o fornecedor de software/ERP:
+  - [ ] Suporte aos novos campos de **CBS, IBS, IS**;  
+  - [ ] Adequação às regras do **Simples Clássico x Híbrido**;  
+  - [ ] Suporte a **crédito/débito de IBS/CBS**, se optar pelo Híbrido.  
+- [ ] Garantir que os sistemas de:
+  - [ ] **NF-e / NFC-e / NFS-e**,  
+  - [ ] **Financeiro e contábil**,  
+  estão prontos para a nova modelagem.  
+- [ ] Revisar cadastros de **produtos/serviços**:
+  - [ ] NCMs;  
+  - [ ] CNAEs;  
+  - [ ] Regimes diferenciados (cesta básica, saúde, educação, etc., se a empresa atuar nessas áreas).
+
+### 7.3. Comunicação com clientes
+
+- [ ] Se a empresa vende para outras empresas (B2B):
+  - [ ] Avisar clientes sobre eventual **opção pelo Simples Híbrido** e possibilidade de crédito IBS/CBS;  
+  - [ ] Ajustar contratos e **formação de preços** considerando novo modelo.  
+- [ ] Se atua principalmente com consumidor final (B2C):
+  - [ ] Avaliar se há necessidade de revisões de preços ou políticas comerciais a médio prazo.
+
+---
+
+## 8. Checklist prático para o produto/plataforma (visão SaaS)
+
+> Esta seção é útil se você estiver construindo um **SaaS fiscal/financeiro** para atender pequenas empresas no Simples.
+
+- [ ] Criar **camadas de parametrização** para:
+  - [ ] Alíquotas de CBS/IBS por tipo de operação;  
+  - [ ] Tratamentos especiais (reduções, isenções, etc.).  
+- [ ] Prever suporte simultâneo a:
+  - [ ] **Regime antigo** (ICMS/ISS/PIS/Cofins) durante a transição;  
+  - [ ] **Novo regime** (CBS/IBS/IS);  
+  - [ ] Situações híbridas (parte das operações em cada regime).  
+- [ ] Modelo de dados preparado para:
+  - [ ] Destacar IBS/CBS na nota;  
+  - [ ] Controlar créditos/débitos de IBS/CBS (para empresas em Simples Híbrido ou regime normal).  
+- [ ] Fluxos específicos para:
+  - [ ] **NF-e** (produtos);  
+  - [ ] **NFC-e** (varejo);  
+  - [ ] **NFS-e** (serviços).  
+- [ ] Painéis de apoio ao contador/usuário:
+  - [ ] Simulações de carga tributária;  
+  - [ ] Comparação **Simples Clássico x Híbrido**;  
+  - [ ] Alertas sobre mudanças de faixas, limites e regras de enquadramento.
+
+---
+
+## 9. Glossário rápido
+
+- **CBS** – Contribuição sobre Bens e Serviços (tributo federal que substitui PIS/Cofins).  
+- **IBS** – Imposto sobre Bens e Serviços (tributo subnacional, substitui ICMS/ISS).  
+- **IS (Imposto Seletivo)** – Tributo adicional sobre bens/serviços nocivos à saúde ou ao meio ambiente.  
+- **IVA Dual** – Modelo de imposto sobre valor agregado em dois níveis: federal (CBS) e estadual/municipal (IBS).  
+- **Simples Nacional** – Regime tributário simplificado e favorecido para micro e pequenas empresas.  
+- **Simples Híbrido** – Modalidade em que parte dos tributos permanece no DAS, mas IBS/CBS são apurados “por fora”, em regime não cumulativo, gerando créditos para clientes.  
+
+---
+
+## 10. Referências legais (para consulta)
+
+> Esta seção é apenas um guia de pesquisa – consultar sempre a legislação atualizada e o contador responsável.
+
+- **EC 132/2023** – Emenda Constitucional da Reforma Tributária do consumo.  
+- **Lei Complementar que regulamenta CBS/IBS/IS** (ex.: LC 214/2025 e demais complementares/ordinárias correlatas).  
+- Atualizações no **Simples Nacional** (LC 123/2006 e alterações posteriores).  
+- Regulamentações específicas de:
+  - **NF-e, NFC-e, NFS-e**;
+  - Ajustes SINIEF;
+  - Legislações estaduais e municipais sobre IBS e regimes específicos.
+
+---
+
+> **Observação final:**  
+> Este documento é um **resumo técnico** voltado a planejamento de pequenas empresas no Simples e ao desenho de sistemas (ERP/SaaS). Não substitui orientação profissional individualizada de contabilidade/advocacia tributária.

@@ -1,0 +1,27 @@
+@startuml
+!theme spacelab
+actor "Super Admin" as SA
+
+rectangle "Console 360° do Tenant" {
+  SA -> (Identificação)
+  SA -> (Estabelecimentos)
+  SA -> (Configuração Fiscal)
+  SA -> (Numeração & Sequenciais)
+  SA -> (Usuários & Acessos)
+  SA -> (Auditoria & Logs)
+}
+
+rectangle "Configuração Fiscal (por Estabelecimento)" {
+  (Configuração Fiscal) -> (NF-e [Ativar/Editar/Testar])
+  (Configuração Fiscal) -> (NFC-e [Ativar/Editar/Testar])
+  (Configuração Fiscal) -> (NFS-e [Ativar/Editar/Testar])
+}
+
+note right
+Cada card possui:
+• Toggle “Ativar tipo”
+• Campos obrigatórios agrupados
+• Botão “Testar configuração”
+• Status visual (⚪ Desativado / 🟡 Pendente / 🟢 Ativo)
+end note
+@enduml

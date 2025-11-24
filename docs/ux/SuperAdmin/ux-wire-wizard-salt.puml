@@ -1,0 +1,47 @@
+@startuml
+salt
+{+ "Wizard de Onboarding Fiscal"
+  { "Passo 1 — Empresa"
+    CNPJ: [ 00.000.000/0000-00                 ]  [ Buscar dados ]
+    Razão Social: [ ACME LTDA                  ]
+    Regime (CRT): ( Simples | Normal )
+    [ Próximo ➜ ]
+  }
+
+  { "Passo 2 — Estabelecimentos"
+    {T
+      + "Selecionar ou Criar"
+      "Nome"               | "Ação"
+      "Estab. Matriz"      | [ Configurar ]
+    }
+    [ + Adicionar estabelecimento ]
+    [ ◀ Voltar ]  [ Próximo ➜ ]
+  }
+
+  { "Passo 3 — Tipos de Emissão"
+    [x] NF-e    [ ] NFC-e    [ ] NFS-e
+    "Selecione os tipos que este estabelecimento vai emitir."
+    [ ◀ Voltar ]  [ Próximo ➜ ]
+  }
+
+  { "Passo 4 — Detalhes por Tipo"
+    { "NF-e (Selecionado)"
+      Ambiente: ( homolog | producao )
+      Série: [ 001 ]  Próximo nº: [ 1 ]
+      Certificado A1: [ alias-certificado ]  [ Selecionar... ]
+    }
+    [ Testar configuração ]
+    "Resultado do teste: 🟢 Conexão e certificado válidos."
+    [ ◀ Voltar ]  [ Próximo ➜ ]
+  }
+
+  { "Passo 5 — Teste & Resumo"
+    "NF-e: 🟢 Ativo (validado em 2025-11-20)"
+    "NFC-e: ⚪ Desativado"
+    "NFS-e: ⚪ Desativado"
+    [ Concluir ]
+  }
+}
+@enduml
+
+

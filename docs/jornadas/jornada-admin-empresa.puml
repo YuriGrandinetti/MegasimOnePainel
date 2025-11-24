@@ -1,0 +1,47 @@
+@startuml
+title Jornada 2: Administrador da Empresa (Tenant) - MEGASIM One
+
+start
+:Login;
+if (Pertence a várias organizações?) then (Sim)
+  :Selecionar organização;
+else (Não)
+  :Entrar no tenant padrão;
+endif
+
+:Dashboard do Tenant (pendências de onboarding);
+if (Onboarding concluído?) then (Não)
+  :Wizard de Onboarding;
+  :Informar CNPJ/IE/IM e Endereço;
+  :Upload Certificado A1 + senha;
+  :Testar comunicação SEFAZ;
+  if (Teste OK?) then (Sim)
+    :Definir Séries/Numeração (NF-e/NFC-e/NFS-e);
+    :Configurar Fiscal (Simples, CFOP/CSOSN/NCM/ISS);
+    :Importar Clientes/Produtos/Serviços (opcional);
+    :Concluir Onboarding;
+  else (Falha)
+    :Exibir erro (certificado/senha/conexão);
+    :Ajustar e retestar;
+  endif
+endif
+
+:Equipe e Permissões;
+:Convidar usuários (Admin/Fiscal/Financeiro/Leitura);
+
+:Assistente "Emita sua primeira NF-e";
+:Cliente → Itens → Pagamento → Revisão;
+:Transmitir NF-e;
+if (Autorizada?) then (Sim)
+  :Sucesso (PDF, Enviar, Histórico);
+  :Lançar Contas a Receber (se a prazo);
+else (Não)
+  :Exibir rejeição + ação sugerida;
+  :Retornar à etapa e corrigir;
+endif
+
+:Financeiro Básico (baixas e fluxo de caixa);
+:Relatórios (faturamento mês/12m, exportações);
+
+stop
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+!theme spacelab
+start
+:Passo 1 — Empresa (CNPJ, Razão Social, Regime);
+:Passo 2 — Estabelecimentos (criar/selecionar);
+:Passo 3 — Tipos de Emissão (NF-e / NFC-e / NFS-e);
+:Passo 4 — Detalhes por Tipo (coletar essenciais);
+:Passo 5 — Teste & Resumo (status ✓/⚠️, salvar);
+stop
+@enduml

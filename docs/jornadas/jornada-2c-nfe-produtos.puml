@@ -1,0 +1,19 @@
+@startuml
+title Jornada 2C: Indústria / Atacado (NF-e Produtos)
+
+start
+:Login → Selecionar Organização;
+:Onboarding NF-e;
+:Configurar CNPJ/IE/Certificado A1;
+:Definir CFOP/CSOSN/NCM/Regime Tributário;
+:Teste de Comunicação SEFAZ;
+:Cadastros (Clientes, Produtos, Transportadoras);
+:Emitir NF-e (Cliente → Itens → Pagamento → Revisão → Transmitir);
+if (Autorizada?) then (Sim)
+  :Sucesso (PDF/XML/Envio e-mail);
+else
+  :Rejeitada → Corrigir e reenviar;
+endif
+:Financeiro (Contas a Receber / Relatórios);
+stop
+@enduml

@@ -1,0 +1,108 @@
+@startuml
+title Service Blueprint — Emissão de NFS-e (Serviços Municipais) — MEGASIM One
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333333
+  FontSize 14
+  BorderColor #BBBBBB
+  RoundCorner 8
+}
+skinparam partition {
+  BackgroundColor #FFFFFF
+  BorderColor #999999
+}
+skinparam note {
+  BackgroundColor #FFFFEE
+  BorderColor #E0DFAF
+}
+skinparam ArrowColor #CCCCCC
+skinparam shadowing false
+
+' LINHAS GUIAS
+rectangle "<b>Linha de Interação</b>" as L1 #F3F3F3
+rectangle "<b>Linha de Visibilidade</b>" as L2 #F3F3F3
+rectangle "<b>Linha Interna</b>" as L3 #F3F3F3
+
+' CAMADAS
+
+partition "**Ações do Usuário (Prestador de Serviços)**" as USER {
+  rectangle "1️⃣ Configura credenciais municipais\n• CNPJ, IM, usuário, senha/token" as U1
+  rectangle "2️⃣ Cadastra serviço e cliente\n• Código de serviço (LC116)\n• Descrição / alíquota ISS" as U2
+  rectangle "3️⃣ Gera RPS (Recibo Provisório de Serviços)" as U3
+  rectangle "4️⃣ Transmite RPS → NFS-e\n• Acompanha status e protocolo" as U4
+  rectangle "5️⃣ Exporta XML/PDF e repassa ao contador" as U5
+}
+
+L1 -[hidden]-> L1
+
+partition "**Frontstage (Interface / UX visível)**" as FRONT {
+  rectangle "Assistente de configuração municipal\n• valida campos e token\n• integração teste" as F1
+  rectangle "Formulário de serviços e clientes\n• autocomplete e códigos ABRASF\n• cálculo automático de ISS" as F2
+  rectangle "Tela de geração de RPS\n• botão 'Transmitir RPS'\n• feedback visual de progresso" as F3
+  rectangle "Painel de NFS-e emitidas\n• status, número, data, total, botão 'Baixar XML/PDF'" as F4
+  rectangle "Seção 'Exportar Contador'\n• filtro por período • exportação em lote" as F5
+}
+
+L2 -[hidden]-> L2
+
+partition "**Backstage (Serviços / Integrações)**" as BACK {
+  rectangle "Módulo Integrador Municipal\n• detecta provedor (ABRASF, GINFES, Betha, DSF, etc.)" as B1
+  rectangle "Autenticação\n• login/token SOAP ou REST\n• renovação automática de sessão" as B2
+  rectangle "Envio RPS → lote XML\n• assina com certificado A1\n• envia e aguarda protocolo" as B3
+  rectangle "Consulta de retorno\n• polling até NFS-e autorizada\n• parsing do XML de retorno" as B4
+  rectangle "Gravação fiscal e financeira\n• gera contas a receber\n• atualiza dashboards" as B5
+}
+
+L3 -[hidden]-> L3
+
+partition "**Suporte Interno / Automação**" as SUP {
+  rectangle "Logs de transmissão (por provedor)\n• erros, timeouts, XML de retorno" as S1
+  rectangle "Alertas automáticos\n• falha de credencial • provedor fora do ar" as S2
+  rectangle "Base de conhecimento contextual\n• artigos: 'Como obter token municipal', etc." as S3
+  rectangle "Monitor IA (futuro)\n• detecta padrões de rejeição\n• sugere correções automáticas" as S4
+}
+
+partition "**Evidências / Artefatos**" as ART {
+  rectangle "RPS.XML e NFS-e.XML\n• guardados no tenant" as A1
+  rectangle "DANFSE (PDF)\n• layout customizado conforme cidade" as A2
+  rectangle "Relatórios ISS / Retenções\n• resumo de IR, PIS, COFINS, CSLL" as A3
+}
+
+' CONEXÕES
+U1 --> F1
+F1 --> B1
+B1 --> B2
+B2 --> F1 : "Teste OK / Erro credencial"
+U2 --> F2
+F2 --> B3
+U3 --> F3
+F3 --> B3
+B3 --> B4
+B4 --> F4
+U4 --> F4
+F4 --> B5
+B5 --> F5
+F5 --> U5
+
+' SUPORTE
+B2 ..> S1 : log erros
+S1 ..> S2 : alerta automático
+F1 ..> S3 : ajuda contextual
+B4 ..> A1
+F4 ..> A2
+B5 ..> A3
+
+note right of B1
+Cada município tem API distinta:\n• ABRASF (padrão nacional)\n• GINFES, BETHA, DSF, IPM, ISSNet etc.\nSistema identifica e adapta.
+end note
+
+note right of B3
+Regras de lote e número RPS;\ntratamento de assinaturas digitais;\nretry em caso de falha.
+end note
+
+note right of S4
+Roadmap IA: detectar erros comuns e sugerir ajustes automáticos.
+end note
+@enduml
+![Service Blueprint](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-service-blueprint-emissao.svg)

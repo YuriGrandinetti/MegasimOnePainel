@@ -1,0 +1,66 @@
+@startuml
+title Roadmap UX — MEGASIM One (Visão por Fases)
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333333
+  FontSize 14
+  BorderColor #999999
+  RoundCorner 8
+}
+skinparam ArrowColor #BBBBBB
+skinparam shadowing false
+
+!define RECTANGLE(x,y,color,text) rectangle "<b><size:16><color:" + color + ">" + text + "</color></size></b>" as x <<y>> #white
+
+legend left
+|= Cor |= Fase UX |
+|<#8CC665>| MVP (Base do produto) |
+|<#F9D423>| Expansão e Otimização |
+|<#6CC3E0>| Automação Inteligente |
+|<#B88AFF>| IA e Suporte Autônomo |
+endlegend
+
+' --- MVP ---
+RECTANGLE(F1, MVP, #8CC665, "🚀 MVP — Base de Experiência")
+note right of F1
+• Onboarding fiscal unificado  
+• Emissão guiada de notas  
+• Dashboard global de tenants  
+• Permissões básicas e convites
+end note
+
+' --- Expansão ---
+RECTANGLE(F2, EXP, #F9D423, "📈 Expansão e Otimização")
+note right of F2
+• Financeiro integrado às notas  
+• Alertas automáticos de erro e certificados  
+• Relatórios consolidados e exportações  
+• Suporte visual dentro do sistema
+end note
+
+' --- Automação ---
+RECTANGLE(F3, AUTO, #6CC3E0, "⚙️ Automação Inteligente")
+note right of F3
+• Criação automática de tenants pós-venda  
+• Emissão em lote e faturamento automatizado  
+• Comunicações automáticas (e-mails, lembretes)  
+• Painel de auditoria e logs automáticos
+end note
+
+' --- IA / Suporte ---
+RECTANGLE(F4, IA, #B88AFF, "🤖 IA e Suporte Autônomo")
+note right of F4
+• Chat contextual inteligente  
+• Recomendações de fluxo baseadas em uso  
+• Insights de churn e engajamento via IA  
+• Sugestões proativas de melhoria de experiência
+end note
+
+F1 --> F2 : Evolução do MVP
+F2 --> F3 : Escala e automação
+F3 --> F4 : Inteligência e aprendizado contínuo
+@enduml
+
+![Roadmap UX](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-roadmap.svg)
+

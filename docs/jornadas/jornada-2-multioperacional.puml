@@ -1,0 +1,29 @@
+@startuml
+title Jornada 2: Administrador Multioperacional (NF-e, NFC-e, NFS-e)
+
+start
+:Login → Selecionar Organização;
+:Onboarding Fiscal Unificado;
+:Preencher Dados da Empresa (CNPJ, IE, IM, Endereço);
+:Upload Certificado A1 + Senha;
+:Selecionar Módulos Fiscais;
+
+fork
+  :Configurar NF-e (séries, CFOP, regime, teste SEFAZ);
+fork again
+  :Configurar NFC-e (série PDV, SAT/MFE, contingência);
+fork again
+  :Configurar NFS-e (município, credenciais, código serviço);
+end fork
+
+:Salvar e Concluir Onboarding;
+:Equipe e Permissões;
+:Emissão (escolher tipo de documento);
+partition "Fluxos de Emissão" {
+  :NF-e → Transmitir SEFAZ → Autorizada/Rejeitada;
+  :NFC-e → Transmitir/Contingência → DANFE NFC-e;
+  :NFS-e → RPS → Transmitir Prefeitura → Autorizada/Rejeitada;
+}
+:Financeiro Unificado (Contas a Receber / Relatórios);
+stop
+@enduml

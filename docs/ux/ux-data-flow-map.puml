@@ -1,0 +1,67 @@
+@startuml
+title UX Data Flow Map — MEGASIM One (Dados entre UX, Fiscal, Financeiro e IA)
+
+skinparam backgroundColor #FAFAFA
+skinparam rectangle {
+  FontColor #333333
+  FontSize 14
+  BorderColor #AAAAAA
+  RoundCorner 10
+}
+skinparam ArrowColor #777777
+skinparam shadowing false
+
+rectangle "👤 Usuário / Tenant\n(Admin, Fiscal, Financeiro)" as USER
+rectangle "🎨 Interface UX\n(Web App / Mobile / Painel)" as UI
+rectangle "⚙️ Orquestrador UX / API Gateway" as UXAPI
+rectangle "🧾 Módulo Fiscal\n(NF-e, NFC-e, NFS-e)" as FISCAL
+rectangle "💰 Módulo Financeiro\n(Contas, Pagamentos, Cobranças)" as FIN
+rectangle "🧠 Módulo IA / Suporte Inteligente" as AI
+rectangle "🗃️ Data Lake / Banco Multi-Tenant" as DB
+rectangle "📊 Observabilidade / Logs / Auditoria" as OBS
+rectangle "☁️ Integrações Externas\n(SEFAZ, Prefeituras, Gateways, E-mail)" as EXT
+
+' --- FLUXOS DE DADOS PRINCIPAIS ---
+
+USER --> UI : Inputs (dados fiscais, clientes, serviços, valores)
+UI --> UXAPI : Requisições REST / GraphQL
+UXAPI --> FISCAL : Dados fiscais validados
+FISCAL --> EXT : XML / JSON → SEFAZ / Prefeitura
+EXT --> FISCAL : Autorização / rejeição / protocolo
+FISCAL --> FIN : Dados de faturamento
+FIN --> DB : Registro de contas a receber/pagar
+FISCAL --> DB : Armazena XML, DANFE, protocolo
+UXAPI --> AI : Contexto e logs para aprendizado
+AI --> UXAPI : Sugestões e automações UX
+UXAPI --> OBS : Logs de uso e eventos
+OBS --> DB : Armazena telemetria e histórico
+AI --> OBS : Indicadores e recomendações
+FIN --> OBS : Logs de conciliação / pagamentos
+EXT --> OBS : Erros / status integrações
+
+' --- FLUXOS DE SUPORTE ---
+USER --> UI : Acessa Ajuda / Chat
+UI --> AI : Consulta IA e artigos
+AI --> UXAPI : Requisição de logs técnicos
+UXAPI --> OBS : Coleta e envia logs relevantes
+AI --> USER : Solução sugerida / Ação corretiva
+
+' --- ANOTAÇÕES ---
+note right of FISCAL
+<b>Dados sensíveis:</b>\n• CNPJ / IE / IM / CFOP / NCM / ISS\n• XML / DANFE / protocolos\n• Retenção de impostos
+end note
+
+note right of FIN
+<b>Dados financeiros:</b>\n• Contas a receber/pagar\n• Faturas e cobranças\n• Pagamentos e conciliação\n• NFS-e da plataforma
+end note
+
+note right of AI
+<b>Dados processados:</b>\n• Logs, rejeições, padrões de erro\n• Interações de suporte\n• Aprendizado de recomendações
+end note
+
+note right of OBS
+<b>Governança:</b>\n• Auditoria completa de ações\n• Telemetria UX (tempo, sucesso, falhas)\n• Alertas automáticos para suporte
+end note
+
+@enduml
+![UX Data Flow Map](https://raw.githubusercontent.com/YuriGrandinetti/MegasimOnePainel/main/imagens/docs/diagrams/ux-data-flow-map.svg)
